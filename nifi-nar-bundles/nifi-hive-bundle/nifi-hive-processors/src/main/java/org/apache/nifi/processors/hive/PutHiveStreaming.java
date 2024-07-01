@@ -637,7 +637,7 @@ public class PutHiveStreaming extends AbstractSessionFactoryProcessor {
         return RollbackOnFailure.createOnError((fc, input, res, e) -> {
 
             if (res.penalty() == ErrorTypes.Penalty.Yield) {
-                context.yield();
+                context.yieldForAWhile();
             }
 
             switch (res.destination()) {

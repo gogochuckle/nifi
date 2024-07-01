@@ -418,7 +418,7 @@ public class ListGCSBucket extends AbstractGCSProcessor {
             getLogger().error("Failed to list contents of GCS Bucket", e);
             listingAction.getBlobWriter().finishListingExceptionally(e);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -431,7 +431,7 @@ public class ListGCSBucket extends AbstractGCSProcessor {
             restoreState(session);
         } catch (IOException e) {
             getLogger().error("Failed to restore processor state; yielding", e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -444,7 +444,7 @@ public class ListGCSBucket extends AbstractGCSProcessor {
             getLogger().error("Failed to list contents of GCS Bucket", e);
             listingAction.getBlobWriter().finishListingExceptionally(e);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -651,7 +651,7 @@ public class ListGCSBucket extends AbstractGCSProcessor {
         public void finishListing(final int listCount, final long maxTimestamp, final Set<String> keysMatchingTimestamp) {
             if (maxTimestamp == 0) {
                 getLogger().debug("No new objects in GCS bucket {} to list. Yielding.", context.getProperty(BUCKET).evaluateAttributeExpressions().getValue());
-                context.yield();
+                context.yieldForAWhile();
             } else {
                 commit(listCount);
 
@@ -716,7 +716,7 @@ public class ListGCSBucket extends AbstractGCSProcessor {
                 getLogger().error("Failed to list contents of bucket", e);
                 writer.finishListingExceptionally(e);
                 session.rollback();
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }

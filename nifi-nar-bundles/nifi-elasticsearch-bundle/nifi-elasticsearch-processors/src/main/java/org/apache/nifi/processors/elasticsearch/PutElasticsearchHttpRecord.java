@@ -557,7 +557,7 @@ public class PutElasticsearchHttpRecord extends AbstractElasticsearchHttpProcess
                 // Something went wrong when parsing the response, log the error and route to failure
                 logger.error("Error parsing Bulk API response: {}", ioe.getMessage(), ioe);
                 session.transfer(flowFile, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             } finally {
                 getResponse.close();
@@ -567,7 +567,7 @@ public class PutElasticsearchHttpRecord extends AbstractElasticsearchHttpProcess
             logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to retry. This is likely a server problem, yielding...",
                     statusCode, getResponse.message());
             session.transfer(flowFile, REL_RETRY);
-            context.yield();
+            context.yieldForAWhile();
             return;
         } else {  // 1xx, 3xx, 4xx, etc. -> NO RETRY
             logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to failure", statusCode, getResponse.message());

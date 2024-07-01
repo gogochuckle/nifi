@@ -170,7 +170,7 @@ public class GetAzureQueueStorage_v12 extends AbstractAzureQueueStorage_v12 {
                     Context.NONE);
         } catch (final QueueStorageException e) {
             getLogger().error("Failed to retrieve messages from Azure Storage Queue", e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

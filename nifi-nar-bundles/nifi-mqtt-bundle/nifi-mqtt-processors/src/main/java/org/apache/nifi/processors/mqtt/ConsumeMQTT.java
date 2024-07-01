@@ -364,7 +364,7 @@ public class ConsumeMQTT extends AbstractMQTTProcessor {
         }
 
         if (mqttQueue.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -387,7 +387,7 @@ public class ConsumeMQTT extends AbstractMQTTProcessor {
         } catch (Exception e) {
             logger.error("Connection failed to {}. Yielding processor", clientProperties.getRawBrokerUris(), e);
             mqttClient = null; // prevent stucked processor when subscribe fails
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -557,7 +557,7 @@ public class ConsumeMQTT extends AbstractMQTTProcessor {
             }
 
         } catch (final Exception e) {
-            context.yield();
+            context.yieldForAWhile();
 
             // we try to add the messages back into the internal queue
             int numberOfMessages = 0;

@@ -154,13 +154,13 @@ public class GetSQS extends AbstractSQSProcessor {
             response = client.receiveMessage(request);
         } catch (final Exception e) {
             getLogger().error("Failed to receive messages from Amazon SQS due to {}", new Object[]{e});
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         final List<Message> messages = response.messages();
         if (messages.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

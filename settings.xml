@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository>F:\.m2\repository</localRepository>
+  <mirrors>
+    <mirror>
+      <id>central</id>
+      <mirrorOf>central</mirrorOf>
+      <name>aliyun</name>
+      <url>https://maven.aliyun.com/repository/central/</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>aliyun-central</id>
+      <repositories>
+        <repository>
+          <id>aliyun-central</id>
+          <name>aliyun public central release</name>
+          <url>https://maven.aliyun.com/repository/central/</url>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
+      <id>jdk17</id>
+      <properties>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+      </properties>
+    </profile>
+  </profiles>
+  <servers>
+    
+  </servers>
+  <activeProfiles>
+    <activeProfile>aliyun-central</activeProfile>
+    <activeProfile>jdk17</activeProfile>
+  </activeProfiles>
+</settings>

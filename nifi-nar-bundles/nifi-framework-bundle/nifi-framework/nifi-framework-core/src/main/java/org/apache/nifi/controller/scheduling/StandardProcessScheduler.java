@@ -491,7 +491,7 @@ public final class StandardProcessScheduler implements ProcessScheduler {
     }
 
     @Override
-    public void yield(final ProcessorNode procNode) {
+    public void yieldForAWhile(final ProcessorNode procNode) {
         // This exists in the ProcessScheduler so that the scheduler can take
         // advantage of the fact that
         // the Processor was yielded and, as a result, avoid scheduling the

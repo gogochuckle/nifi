@@ -16,7 +16,7 @@
  */
 def flowFile = session.get();
 if (flowFile == null) {
-    context?.yield();
+    context?.yieldForAWhile();
 }
 else {
     flowFile = session.putAttribute(flowFile, "from-content", "test content")

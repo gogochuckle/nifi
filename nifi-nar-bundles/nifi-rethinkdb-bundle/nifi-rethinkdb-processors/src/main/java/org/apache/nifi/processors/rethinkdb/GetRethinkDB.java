@@ -173,7 +173,7 @@ public class GetRethinkDB extends AbstractRethinkDBProcessor {
                     exception.getLocalizedMessage(), exception);
             flowFile = session.putAttribute(flowFile, RETHINKDB_ERROR_MESSAGE, exception.getMessage() + "");
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

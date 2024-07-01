@@ -162,17 +162,17 @@ public abstract class PutFileTransfer<T extends FileTransfer> extends AbstractPr
                     && (++fileCount < maxNumberOfFiles)
                     && ((flowFile = session.get()) != null));
         } catch (final IOException e) {
-            context.yield();
+            context.yieldForAWhile();
             logger.error("Unable to transfer {} to remote host {} due to {}", new Object[]{flowFile, hostname, e});
             flowFile = session.penalize(flowFile);
             session.transfer(flowFile, REL_FAILURE);
         } catch (final FlowFileAccessException e) {
-            context.yield();
+            context.yieldForAWhile();
             logger.error("Unable to transfer {} to remote host {} due to {}", new Object[]{flowFile, hostname, e.getCause()});
             flowFile = session.penalize(flowFile);
             session.transfer(flowFile, REL_FAILURE);
         } catch (final ProcessException e) {
-            context.yield();
+            context.yieldForAWhile();
             logger.error("Unable to transfer {} to remote host {} due to {}: {}; routing to failure", new Object[]{flowFile, hostname, e, e.getCause()});
             flowFile = session.penalize(flowFile);
             session.transfer(flowFile, REL_FAILURE);

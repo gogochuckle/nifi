@@ -302,7 +302,7 @@ public class ControlRate extends AbstractProcessor {
     public void onTrigger(final ProcessContext context, final ProcessSession session) throws ProcessException {
         List<FlowFile> flowFiles = session.get(new ThrottleFilter(MAX_FLOW_FILES_PER_BATCH, this::getCurrentTimeMillis));
         if (flowFiles.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

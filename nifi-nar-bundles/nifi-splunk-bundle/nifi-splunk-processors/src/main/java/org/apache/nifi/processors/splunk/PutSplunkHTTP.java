@@ -184,7 +184,7 @@ public class PutSplunkHTTP extends SplunkAPICall {
 
                     break;
                 case 503 : // HEC is unhealthy, queues are full
-                    context.yield();
+                    context.yieldForAWhile();
                     // fall-through
                 default:
                     getLogger().error("Putting data into Splunk was not successful. Response with header {} was: {}",

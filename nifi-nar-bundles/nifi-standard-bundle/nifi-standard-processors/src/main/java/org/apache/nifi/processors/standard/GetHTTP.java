@@ -463,7 +463,7 @@ public class GetHTTP extends AbstractSessionFactoryProcessor {
                     final int statusCode = response.getStatusLine().getStatusCode();
                     if (statusCode == NOT_MODIFIED) {
                         logger.info("content not retrieved because server returned HTTP Status Code {}: Not Modified", new Object[]{NOT_MODIFIED});
-                        context.yield();
+                        context.yieldForAWhile();
                         // doing a commit in case there were flow files in the input queue
                         session.commitAsync();
                         return;
@@ -501,12 +501,12 @@ public class GetHTTP extends AbstractSessionFactoryProcessor {
                     session.commitAsync();
 
                 } catch (final IOException e) {
-                    context.yield();
+                    context.yieldForAWhile();
                     session.rollback();
                     logger.error("Failed to retrieve file from {} due to {}; rolling back session", url, e.getMessage(), e);
                     throw new ProcessException(e);
                 } catch (final Throwable t) {
-                    context.yield();
+                    context.yieldForAWhile();
                     session.rollback();
                     logger.error("Failed to process due to {}; rolling back session", t.getMessage(), t);
                     throw t;

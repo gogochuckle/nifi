@@ -451,7 +451,7 @@ public class ConsumeAzureEventHub extends AbstractSessionFactoryProcessor implem
 
         // After a EventProcessor is registered successfully, nothing has to be done at onTrigger
         // because new sessions are created when new messages are arrived by the EventProcessor.
-        context.yield();
+        context.yieldForAWhile();
     }
 
     @OnStopped

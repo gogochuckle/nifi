@@ -46,7 +46,7 @@ public class MockProcessContext implements ProcessContext {
     }
 
     @Override
-    public void yield() {
+    public void yieldForAWhile() {
 
     }
 

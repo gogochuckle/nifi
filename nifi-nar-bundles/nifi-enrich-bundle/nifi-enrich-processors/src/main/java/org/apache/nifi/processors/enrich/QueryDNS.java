@@ -190,7 +190,7 @@ public class QueryDNS extends AbstractEnrichProcessor {
                 }
             }
         } catch (NamingException e) {
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException("Unexpected NamingException while processing records. Please review your configuration.", e);
 
         }
@@ -212,7 +212,7 @@ public class QueryDNS extends AbstractEnrichProcessor {
         try {
             initializeResolver(context);
         } catch (Exception e) {
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException("Failed to initialize the JNDI DNS resolver server", e);
         }
     }

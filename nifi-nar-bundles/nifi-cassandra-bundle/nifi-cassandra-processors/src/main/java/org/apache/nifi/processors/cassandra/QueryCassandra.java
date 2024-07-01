@@ -398,7 +398,7 @@ public class QueryCassandra extends AbstractCassandraProcessor {
                 if (fileToProcess != null) {
                     session.remove(fileToProcess);
                 }
-                context.yield();
+                context.yieldForAWhile();
             }
         } catch (InterruptedException|ExecutionException ex) {
             if (context.hasIncomingConnection()) {
@@ -416,7 +416,7 @@ public class QueryCassandra extends AbstractCassandraProcessor {
                 if (fileToProcess != null) {
                     session.remove(fileToProcess);
                 }
-                context.yield();
+                context.yieldForAWhile();
             }
         } catch (final ProcessException e) {
             if (context.hasIncomingConnection()) {
@@ -434,7 +434,7 @@ public class QueryCassandra extends AbstractCassandraProcessor {
                 if (fileToProcess != null) {
                     session.remove(fileToProcess);
                 }
-                context.yield();
+                context.yieldForAWhile();
             }
         }
         session.commitAsync();

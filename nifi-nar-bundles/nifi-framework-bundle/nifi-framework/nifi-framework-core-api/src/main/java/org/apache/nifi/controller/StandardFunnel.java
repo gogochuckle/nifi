@@ -428,7 +428,7 @@ public class StandardFunnel implements Funnel {
     /**
      * Updates the amount of time that this processor should avoid being
      * scheduled when the processor calls
-     * {@link org.apache.nifi.processor.ProcessContext#yield() ProcessContext.yield()}
+     * {@link org.apache.nifi.processor.ProcessContext#yieldForAWhile() ProcessContext.yield()}
      *
      * @param yieldPeriod new period
      */
@@ -469,13 +469,13 @@ public class StandardFunnel implements Funnel {
      * {@link #setYieldPeriod(String)} methods.
      */
     @Override
-    public void yield() {
+    public void yieldForAWhile() {
         final long yieldMillis = getYieldPeriod(TimeUnit.MILLISECONDS);
-        yield(yieldMillis, TimeUnit.MILLISECONDS);
+        yieldForAWhile(yieldMillis, TimeUnit.MILLISECONDS);
     }
 
     @Override
-    public void yield(final long yieldDuration, final TimeUnit timeUnit) {
+    public void yieldForAWhile(final long yieldDuration, final TimeUnit timeUnit) {
         final long yieldMillis = timeUnit.toMillis(yieldDuration);
         yieldExpiration.set(Math.max(yieldExpiration.get(), System.currentTimeMillis() + yieldMillis));
     }

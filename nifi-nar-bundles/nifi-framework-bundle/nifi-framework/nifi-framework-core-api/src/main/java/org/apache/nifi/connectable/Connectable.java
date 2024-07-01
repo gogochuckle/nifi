@@ -215,7 +215,7 @@ public interface Connectable extends Triggerable, ComponentAuthorizable, Positio
     /**
      * Updates the amount of time that this Connectable should avoid being
      * scheduled when the processor calls
-     * {@link org.apache.nifi.processor.ProcessContext#yield() ProcessContext.yield()}
+     * {@link org.apache.nifi.processor.ProcessContext#yieldForAWhile() ProcessContext.yield()}
      *
      * @param yieldPeriod new yield period
      */
@@ -235,9 +235,9 @@ public interface Connectable extends Triggerable, ComponentAuthorizable, Positio
      * {@link #getYieldPeriod(TimeUnit)} and
      * {@link #setYieldPeriod(String yieldPeriod)} methods.
      */
-    void yield();
+    void yieldForAWhile();
 
-    void yield(long yieldDuration, TimeUnit timeUnit);
+    void yieldForAWhile(long yieldDuration, TimeUnit timeUnit);
 
     /**
      * @return the time in milliseconds since Epoch at which this Connectable

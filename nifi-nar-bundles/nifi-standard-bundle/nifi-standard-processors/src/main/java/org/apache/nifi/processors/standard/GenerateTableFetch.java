@@ -283,7 +283,7 @@ public class GenerateTableFetch extends AbstractDatabaseFetchProcessor {
         } catch (final IOException ioe) {
             logger.error("Failed to retrieve observed maximum values from the State Manager. Will not perform "
                     + "query until this is accomplished.", ioe);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -561,7 +561,7 @@ public class GenerateTableFetch extends AbstractDatabaseFetchProcessor {
             Throwable t = (pe.getCause() == null ? pe : pe.getCause());
             logger.error("Error during processing: {}", t.getMessage(), t);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

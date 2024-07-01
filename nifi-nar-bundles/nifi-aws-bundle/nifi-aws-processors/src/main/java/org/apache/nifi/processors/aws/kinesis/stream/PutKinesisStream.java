@@ -216,7 +216,7 @@ public class PutKinesisStream extends AbstractKinesisStreamProcessor {
         } catch (final Exception exception) {
             getLogger().error("Failed to publish due to exception {} flowfiles {} ", new Object[]{exception, flowFiles});
             session.transfer(flowFiles, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 }

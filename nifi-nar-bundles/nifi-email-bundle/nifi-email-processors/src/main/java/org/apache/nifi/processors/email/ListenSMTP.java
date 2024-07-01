@@ -187,7 +187,7 @@ public class ListenSMTP extends AbstractSessionFactoryProcessor {
                 getLogger().error("Unable to start SMTP server due to " + ex.getMessage(), ex);
             }
         }
-        context.yield();//nothing really to do here since threading managed by smtp server sessions
+        context.yieldForAWhile();//nothing really to do here since threading managed by smtp server sessions
     }
 
     public int getListeningPort() {

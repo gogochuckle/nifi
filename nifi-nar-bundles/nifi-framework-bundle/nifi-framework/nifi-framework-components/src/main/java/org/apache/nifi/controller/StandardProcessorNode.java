@@ -599,21 +599,21 @@ public class StandardProcessorNode extends ProcessorNode implements Connectable 
      * {@link #setYieldPeriod(String)}.
      */
     @Override
-    public void yield() {
+    public void yieldForAWhile() {
         final Processor processor = processorRef.get().getProcessor();
         final long yieldMillis = getYieldPeriod(TimeUnit.MILLISECONDS);
-        this.yield(yieldMillis, TimeUnit.MILLISECONDS);
+        this.yieldForAWhile(yieldMillis, TimeUnit.MILLISECONDS);
 
         final String yieldDuration = (yieldMillis > 1000) ? (yieldMillis / 1000) + " seconds" : yieldMillis + " milliseconds";
         LoggerFactory.getLogger(processor.getClass()).trace("{} has chosen to yield its resources; will not be scheduled to run again for {}", processor, yieldDuration);
     }
 
     @Override
-    public void yield(final long period, final TimeUnit timeUnit) {
+    public void yieldForAWhile(final long period, final TimeUnit timeUnit) {
         final long yieldMillis = TimeUnit.MILLISECONDS.convert(period, timeUnit);
         yieldExpiration.set(Math.max(yieldExpiration.get(), System.currentTimeMillis() + yieldMillis));
 
-        processScheduler.yield(this);
+        processScheduler.yieldForAWhile(this);
     }
 
     /**

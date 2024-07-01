@@ -314,13 +314,13 @@ public class SpringContextProcessor extends AbstractProcessor {
                 processSession.transfer(processSession.penalize(flowFileToProcess), REL_FAILURE);
                 this.getLogger().error("Timed out while sending FlowFile to Spring Application Context "
                         + this.applicationContextConfigFileName);
-                context.yield();
+                context.yieldForAWhile();
             }
         } catch (Exception e) {
             processSession.transfer(flowFileToProcess, REL_FAILURE);
             this.getLogger().error("Failed while sending FlowFile to Spring Application Context "
                     + this.applicationContextConfigFileName + "; " + e.getMessage(), e);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

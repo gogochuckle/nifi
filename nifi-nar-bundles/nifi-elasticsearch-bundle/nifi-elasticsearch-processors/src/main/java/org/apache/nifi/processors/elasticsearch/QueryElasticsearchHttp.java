@@ -369,21 +369,21 @@ public class QueryElasticsearchHttp extends AbstractElasticsearchHttpProcessor {
             if (flowFile != null) {
                 session.transfer(flowFile, REL_RETRY);
             }
-            context.yield();
+            context.yieldForAWhile();
 
         } catch (RetryableException e) {
             logger.error(e.getMessage(), e.getLocalizedMessage(), e);
             if (flowFile != null) {
                 session.transfer(flowFile, REL_RETRY);
             }
-            context.yield();
+            context.yieldForAWhile();
         } catch (Exception e) {
             logger.error("Failed to read {} from Elasticsearch due to {}", flowFile,
                     e.getLocalizedMessage(), e);
             if (flowFile != null) {
                 session.transfer(flowFile, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

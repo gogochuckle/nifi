@@ -396,7 +396,7 @@ public class PostSlack extends AbstractProcessor {
             getLogger().error("Failed to send message to Slack.", e);
             flowFile = session.penalize(flowFile);
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         } finally {
             if (response != null) {
                 try {

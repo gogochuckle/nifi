@@ -171,7 +171,7 @@ public abstract class AbstractCouchbaseProcessor extends AbstractProcessor {
                     if (logger.isDebugEnabled()) {
                         logger.debug("Yielded context: {}", new Object[] {inFile});
                     }
-                    context.yield();
+                    context.yieldForAWhile();
                     break;
                 case None:
                     break;

@@ -67,7 +67,7 @@ public class PutUDP extends AbstractPutEventProcessor<byte[]> {
             getLogger().error("Send Failed {}", flowFile, e);
             session.transfer(session.penalize(flowFile), REL_FAILURE);
             session.commitAsync();
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

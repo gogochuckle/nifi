@@ -199,7 +199,7 @@ public class ListenFTP extends AbstractSessionFactoryProcessor {
         if (this.sessionFactory.compareAndSet(null, sessionFactory)) {
             sessionFactorySetSignal.countDown();
         }
-        context.yield();
+        context.yieldForAWhile();
     }
 
     @Override

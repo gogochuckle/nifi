@@ -142,7 +142,7 @@ public abstract class SolrProcessor extends AbstractProcessor {
             try {
                 kerberosAction.execute();
             } catch (ProcessException e) {
-                context.yield();
+                context.yieldForAWhile();
                 throw e;
             }
         }

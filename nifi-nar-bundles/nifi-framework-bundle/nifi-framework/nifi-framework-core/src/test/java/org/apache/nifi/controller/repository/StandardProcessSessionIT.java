@@ -2955,7 +2955,7 @@ public class StandardProcessSessionIT {
         session.transfer(flowFileRecord, relationship);
         session.commit();
 
-        verify(processor).yield(anyLong(), eq(TimeUnit.MILLISECONDS));
+        verify(processor).yieldForAWhile(anyLong(), eq(TimeUnit.MILLISECONDS));
 
     }
 

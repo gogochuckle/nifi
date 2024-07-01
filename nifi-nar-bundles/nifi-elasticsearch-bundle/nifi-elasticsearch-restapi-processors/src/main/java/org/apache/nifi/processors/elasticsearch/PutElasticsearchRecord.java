@@ -452,7 +452,7 @@ public class PutElasticsearchRecord extends AbstractPutElasticsearch {
         } catch (final Exception ex) {
             getLogger().error("Could not index documents.", ex);
             transferFlowFilesOnException(ex, REL_FAILURE, session, false, input);
-            context.yield();
+            context.yieldForAWhile();
             removeResultRecordFlowFiles(resultRecords, session);
             return;
         }

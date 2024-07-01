@@ -274,7 +274,7 @@ public class FetchElasticsearchHttp extends AbstractElasticsearchHttpProcessor {
                         logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to retry. This is likely a server problem, yielding...",
                                 new Object[]{statusCode, getResponse.message()});
                         session.transfer(flowFile, REL_RETRY);
-                        context.yield();
+                        context.yieldForAWhile();
                     } else if (context.hasIncomingConnection()) {  // 1xx, 3xx, 4xx -> NO RETRY
                         logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to failure", new Object[]{statusCode, getResponse.message()});
                         session.transfer(flowFile, REL_FAILURE);
@@ -293,7 +293,7 @@ public class FetchElasticsearchHttp extends AbstractElasticsearchHttpProcessor {
             } else {
                 session.remove(flowFile);
             }
-            context.yield();
+            context.yieldForAWhile();
 
         } catch (Exception e) {
             logger.error("Failed to read {} from Elasticsearch due to {}", flowFile, e.getLocalizedMessage(), e);
@@ -302,7 +302,7 @@ public class FetchElasticsearchHttp extends AbstractElasticsearchHttpProcessor {
             } else {
                 session.remove(flowFile);
             }
-            context.yield();
+            context.yieldForAWhile();
         } finally {
             if (getResponse != null) {
                 getResponse.close();

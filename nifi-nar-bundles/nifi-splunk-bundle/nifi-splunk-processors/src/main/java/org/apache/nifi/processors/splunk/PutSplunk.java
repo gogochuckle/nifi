@@ -132,7 +132,7 @@ public class PutSplunk extends AbstractPutEventProcessor<byte[]> {
         } catch (EventException e) {
             session.transfer(flowFile, REL_FAILURE);
             session.commitAsync();
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

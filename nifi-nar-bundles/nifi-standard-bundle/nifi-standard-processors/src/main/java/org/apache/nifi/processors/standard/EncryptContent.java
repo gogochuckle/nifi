@@ -610,7 +610,7 @@ public class EncryptContent extends AbstractProcessor {
         } catch (final Exception e) {
             logger.error("Failed to initialize {}cryption algorithm because - ", new Object[]{encrypt ? "en" : "de", e});
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

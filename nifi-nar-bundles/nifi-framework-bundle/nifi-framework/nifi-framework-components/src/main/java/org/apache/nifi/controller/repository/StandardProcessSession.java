@@ -476,7 +476,7 @@ public class StandardProcessSession implements ProcessSession, ProvenanceEventEn
             }
         } else {
             final long backoffTime = calculateBackoffTime(currentRetries, maxBackoffMillis, connectable.getYieldPeriod(TimeUnit.MILLISECONDS));
-            connectable.yield(backoffTime, TimeUnit.MILLISECONDS);
+            connectable.yieldForAWhile(backoffTime, TimeUnit.MILLISECONDS);
         }
     }
 

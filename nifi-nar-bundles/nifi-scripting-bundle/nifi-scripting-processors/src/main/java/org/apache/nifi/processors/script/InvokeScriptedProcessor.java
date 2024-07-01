@@ -574,7 +574,7 @@ public class InvokeScriptedProcessor extends AbstractSessionFactoryProcessor {
         if (!results.isEmpty()) {
             log.error(String.format("Unable to run because the Processor is not valid: [%s]",
                     StringUtils.join(results, ", ")));
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
         if (instance != null) {

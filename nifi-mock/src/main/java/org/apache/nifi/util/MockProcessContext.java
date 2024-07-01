@@ -243,7 +243,7 @@ public class MockProcessContext extends MockControllerServiceLookup implements P
     }
 
     @Override
-    public void yield() {
+    public void yieldForAWhile() {
         yieldCalled = true;
     }
 

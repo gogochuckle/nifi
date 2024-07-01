@@ -164,13 +164,13 @@ public abstract class AbstractFetchHDFSRecord extends AbstractHadoopProcessor {
 
         if (configuration == null || fileSystem == null || ugi == null) {
             getLogger().error("Processor not configured properly because Configuration, FileSystem, or UserGroupInformation was null");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         final FlowFile originalFlowFile = session.get();
         if (originalFlowFile == null ) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -248,7 +248,7 @@ public abstract class AbstractFetchHDFSRecord extends AbstractHadoopProcessor {
             } catch (final IOException | FlowFileAccessException e) {
                 getLogger().error("Failed to retrieve content from {} for {} due to {}; routing to retry", new Object[] {filenameValue, originalFlowFile, e});
                 session.transfer(session.penalize(originalFlowFile), REL_RETRY);
-                context.yield();
+                context.yieldForAWhile();
             } catch (final Throwable t) {
                 getLogger().error("Failed to retrieve content from {} for {} due to {}; routing to failure", new Object[] {filenameValue, originalFlowFile, t});
                 final FlowFile failureFlowFile = session.putAttribute(originalFlowFile, FETCH_FAILURE_REASON_ATTR, t.getMessage() == null ? t.toString() : t.getMessage());

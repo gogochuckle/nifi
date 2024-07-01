@@ -112,7 +112,7 @@ public class GetIgniteCache extends AbstractIgniteCacheProcessor {
                      IGNITE_GET_FAILED_MESSAGE_PREFIX + exception);
                 getLogger().error("Failed to get value for key {} from IgniteDB due to {}", key, exception, exception);
                 session.transfer(flowFile, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
             }
         }
     }

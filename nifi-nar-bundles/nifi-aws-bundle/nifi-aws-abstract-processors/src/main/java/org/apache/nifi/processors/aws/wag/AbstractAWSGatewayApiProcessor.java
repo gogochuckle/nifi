@@ -589,7 +589,7 @@ public abstract class AbstractAWSGatewayApiProcessor extends
                          final ProcessContext context, final int statusCode, final Set<Relationship> relationships) {
         // check if we should yield the processor
         if (!isSuccess(statusCode) && request == null) {
-            context.yield();
+            context.yieldForAWhile();
         }
 
         // If the property to output the response flowfile regardless of status code is set then transfer it

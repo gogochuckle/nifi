@@ -241,7 +241,7 @@ public class PutMongo extends AbstractMongoProcessor {
         } catch (Exception e) {
             logger.error("Failed to insert {} into MongoDB due to {}", flowFile, e, e);
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

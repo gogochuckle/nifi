@@ -162,7 +162,7 @@ public class CreateHadoopSequenceFile extends AbstractHadoopProcessor {
         if (configuration == null) {
             getLogger().error("HDFS not configured properly");
             session.transfer(flowFile, RELATIONSHIP_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

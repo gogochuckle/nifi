@@ -189,13 +189,13 @@ public class PutInfluxDB extends AbstractInfluxDBProcessor {
                         exception.getLocalizedMessage(), exception);
                 session.transfer(flowFile, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         } catch (Exception exception) {
             getLogger().error("Failed to insert into influxDB due to {}",
                     exception.getLocalizedMessage(), exception);
             flowFile = session.putAttribute(flowFile, INFLUX_DB_ERROR_MESSAGE, String.valueOf(exception.getMessage()));
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

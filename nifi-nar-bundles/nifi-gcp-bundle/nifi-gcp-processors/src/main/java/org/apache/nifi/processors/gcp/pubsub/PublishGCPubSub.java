@@ -295,7 +295,7 @@ public class PublishGCPubSub extends AbstractGCPubSubWithProxyProcessor {
         final int maxBatchSize = context.getProperty(MAX_BATCH_SIZE).asInteger();
         final List<FlowFile> flowFileBatch = session.get(maxBatchSize);
         if (flowFileBatch.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
         } else if (MessageDerivationStrategy.FLOWFILE_ORIENTED.equals(inputStrategy)) {
             onTriggerFlowFileStrategy(context, session, stopWatch, flowFileBatch);
         } else if (MessageDerivationStrategy.RECORD_ORIENTED.equals(inputStrategy)) {

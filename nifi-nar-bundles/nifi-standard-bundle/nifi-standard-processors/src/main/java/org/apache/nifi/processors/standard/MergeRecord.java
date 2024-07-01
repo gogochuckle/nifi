@@ -386,7 +386,7 @@ public class MergeRecord extends AbstractSessionFactoryProcessor {
                     manager.completeFullEnoughBins();
 
                     getLogger().debug("No more FlowFiles to bin; will yield");
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             } catch (final Exception e) {
                 getLogger().error("Failed to merge FlowFiles to create new bin due to {}", e, e);

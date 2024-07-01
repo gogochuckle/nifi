@@ -567,7 +567,7 @@ public class HandleHttpRequest extends AbstractProcessor {
                 initializeServer(context);
             }
         } catch (Exception e) {
-            context.yield();
+            context.yieldForAWhile();
 
             try {
                 // shutdown to release any resources allocated during the failed initialization

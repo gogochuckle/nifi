@@ -258,13 +258,13 @@ public abstract class AbstractPutHDFSRecord extends AbstractHadoopProcessor {
 
         if (configuration == null || fileSystem == null || ugi == null) {
             getLogger().error("Processor not configured properly because Configuration, FileSystem, or UserGroupInformation was null");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         final FlowFile flowFile = session.get();
         if (flowFile == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -386,7 +386,7 @@ public abstract class AbstractPutHDFSRecord extends AbstractHadoopProcessor {
                 deleteQuietly(fileSystem, tempDotCopyFile);
                 getLogger().error("Failed to write due to {}", new Object[]{e});
                 session.transfer(session.penalize(putFlowFile), REL_RETRY);
-                context.yield();
+                context.yieldForAWhile();
             } catch (Throwable t) {
                 deleteQuietly(fileSystem, tempDotCopyFile);
                 getLogger().error("Failed to write due to {}", new Object[]{t});

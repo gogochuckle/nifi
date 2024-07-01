@@ -351,7 +351,7 @@ public class InvokeGRPC extends AbstractProcessor {
                 session.transfer(fileToProcess, REL_FAILURE);
             } else {
                 logger.error("Yielding processor due to exception encountered as a source processor: {}", e);
-                context.yield();
+                context.yieldForAWhile();
             }
 
             // cleanup

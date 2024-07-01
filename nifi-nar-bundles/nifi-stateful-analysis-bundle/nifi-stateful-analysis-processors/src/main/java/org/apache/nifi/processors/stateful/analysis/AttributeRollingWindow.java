@@ -198,7 +198,7 @@ public class AttributeRollingWindow extends AbstractProcessor {
         } catch (IOException e) {
             getLogger().error("Failed to get the initial state when processing {}; transferring FlowFile back to its incoming queue", flowFile, e);
             session.transfer(flowFile);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -249,7 +249,7 @@ public class AttributeRollingWindow extends AbstractProcessor {
                     flowFile, REL_FAILED_SET_STATE.getName(), e);
 
             session.transfer(flowFile, REL_FAILED_SET_STATE);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -275,7 +275,7 @@ public class AttributeRollingWindow extends AbstractProcessor {
         } catch (IOException e) {
             getLogger().error("Failed to get the initial state when processing {}; transferring FlowFile back to its incoming queue", flowFile, e);
             session.transfer(flowFile);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -369,7 +369,7 @@ public class AttributeRollingWindow extends AbstractProcessor {
         } catch (IOException e) {
             getLogger().error("Failed to get the initial state when processing {}; transferring FlowFile back to its incoming queue", flowFile, e);
             session.transfer(flowFile);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

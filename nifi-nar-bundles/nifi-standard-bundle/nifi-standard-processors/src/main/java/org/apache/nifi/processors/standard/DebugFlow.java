@@ -437,7 +437,7 @@ public class DebugFlow extends AbstractProcessor {
                         if (noFlowFileCurrYield < noFlowFileMaxYield) {
                             noFlowFileCurrYield += 1;
                             logger.info("DebugFlow yielding with no flow file");
-                            context.yield();
+                            context.yieldForAWhile();
                             break;
                         } else {
                             noFlowFileCurrYield = 0;
@@ -513,7 +513,7 @@ public class DebugFlow extends AbstractProcessor {
                                 new Object[] {ff.getAttribute(CoreAttributes.FILENAME.key()),
                                     ff.getAttribute(CoreAttributes.UUID.key())});
                             session.rollback();
-                            context.yield();
+                            context.yieldForAWhile();
                             return;
                         } else {
                             flowFileCurrYield = 0;

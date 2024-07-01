@@ -522,7 +522,7 @@ public class SelectHiveQL extends AbstractHiveQLProcessor {
                 // This can happen if any exceptions occur while setting up the connection, statement, etc.
                 logger.error("Unable to execute HiveQL select query {} due to {}. No FlowFile to route to failure",
                         new Object[]{hqlStatement, e});
-                context.yield();
+                context.yieldForAWhile();
             } else {
                 if (context.hasIncomingConnection()) {
                     logger.error("Unable to execute HiveQL select query {} for {} due to {}; routing to failure",
@@ -531,7 +531,7 @@ public class SelectHiveQL extends AbstractHiveQLProcessor {
                 } else {
                     logger.error("Unable to execute HiveQL select query {} due to {}; routing to failure",
                             new Object[]{hqlStatement, e});
-                    context.yield();
+                    context.yieldForAWhile();
                 }
                 session.transfer(flowfile, REL_FAILURE);
             }

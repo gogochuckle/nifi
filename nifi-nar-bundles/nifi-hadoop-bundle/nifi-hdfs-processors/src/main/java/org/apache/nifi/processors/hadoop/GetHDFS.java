@@ -298,12 +298,12 @@ public class GetHDFS extends AbstractHadoopProcessor {
                     }
                 }
             } catch (IOException e) {
-                context.yield();
+                context.yieldForAWhile();
                 getLogger().warn("Error while retrieving list of files due to {}", new Object[]{e});
                 return;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                context.yield();
+                context.yieldForAWhile();
                 getLogger().warn("Interrupted while retrieving files", e);
                 return;
             }
@@ -315,7 +315,7 @@ public class GetHDFS extends AbstractHadoopProcessor {
             filePathQueue.drainTo(files, batchSize);
             if (files.isEmpty()) {
                 // nothing to do!
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
             processing.addAll(files);
@@ -401,7 +401,7 @@ public class GetHDFS extends AbstractHadoopProcessor {
             } catch (final Throwable t) {
                 getLogger().error("Error retrieving file {} from HDFS due to {}", new Object[]{file, t});
                 session.rollback();
-                context.yield();
+                context.yieldForAWhile();
             } finally {
                 IOUtils.closeQuietly(stream);
                 stream = null;
@@ -431,7 +431,7 @@ public class GetHDFS extends AbstractHadoopProcessor {
 
                 final boolean directoryExists = getUserGroupInformation().doAs((PrivilegedExceptionAction<Boolean>) () -> hdfs.exists(directoryPath));
                 if (!directoryExists) {
-                    context.yield();
+                    context.yieldForAWhile();
                     getLogger().warn("The directory {} does not exist.", new Object[]{directoryPath});
                 } else {
                     // get listing

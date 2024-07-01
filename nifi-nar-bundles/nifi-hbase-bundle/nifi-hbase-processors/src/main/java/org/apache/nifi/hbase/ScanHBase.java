@@ -424,7 +424,7 @@ public class ScanHBase extends AbstractProcessor implements VisibilityFetchSuppo
             getLogger().error("Failed to receive data from HBase due to {}", e);
             session.rollback();
             // if we failed, we want to yield so that we don't hammer hbase.
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

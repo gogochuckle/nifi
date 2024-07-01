@@ -249,7 +249,7 @@ public class ExecuteInfluxDBQuery extends AbstractInfluxDBProcessor {
                         exception.getLocalizedMessage(), exception);
                 session.transfer(outgoingFlowFile, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

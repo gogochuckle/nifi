@@ -70,7 +70,7 @@ public class ConcatenateFlowFiles extends AbstractProcessor {
         final List<FlowFile> flowFiles = session.get(flowFileCount);
         if (flowFiles.size() != flowFileCount) {
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             getLogger().debug("Need {} FlowFiles but currently on {} are available. Will not merge.", flowFileCount, flowFiles.size());
             return;
         }

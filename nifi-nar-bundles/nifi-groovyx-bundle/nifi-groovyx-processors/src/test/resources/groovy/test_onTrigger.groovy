@@ -16,7 +16,7 @@
  */
 def flowFile = session.get();
 if (flowFile == null) {
-    context?.yield();
+    context?.yieldForAWhile();
 }
 else {
     // Try to parse a date here, will fail after Groovy 2.5.0 if groovy-dateutil is not included

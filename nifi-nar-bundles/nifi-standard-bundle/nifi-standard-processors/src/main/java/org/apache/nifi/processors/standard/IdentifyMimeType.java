@@ -176,7 +176,7 @@ public class IdentifyMimeType extends AbstractProcessor {
                 this.detector = MimeTypesFactory.create(new ByteArrayInputStream(configBody.getBytes()));
                 this.mimeTypes = (MimeTypes)this.detector;
             } catch (Exception e) {
-                context.yield();
+                context.yieldForAWhile();
                 throw new ProcessException("Failed to load config body", e);
             }
         } else {
@@ -185,7 +185,7 @@ public class IdentifyMimeType extends AbstractProcessor {
                 this.detector = MimeTypesFactory.create(bis);
                 this.mimeTypes = (MimeTypes)this.detector;
             } catch (Exception e) {
-                context.yield();
+                context.yieldForAWhile();
                 throw new ProcessException("Failed to load config file", e);
             }
         }

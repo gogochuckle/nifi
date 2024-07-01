@@ -463,7 +463,7 @@ public class GetSplunk extends AbstractProcessor implements ClassloaderIsolation
 
             } catch (IOException e) {
                 getLogger().error("Unable to load data from State Manager due to {}", e.getMessage(), e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -532,7 +532,7 @@ public class GetSplunk extends AbstractProcessor implements ClassloaderIsolation
             } catch (IOException e) {
                 getLogger().error("Unable to load data from State Manager due to {}", e.getMessage(), e);
                 session.rollback();
-                context.yield();
+                context.yieldForAWhile();
             }
         }
     }

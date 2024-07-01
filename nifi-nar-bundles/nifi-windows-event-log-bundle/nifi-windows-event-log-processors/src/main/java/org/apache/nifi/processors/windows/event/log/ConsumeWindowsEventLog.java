@@ -304,7 +304,7 @@ public class ConsumeWindowsEventLog extends AbstractSessionFactoryProcessor {
         if (!isSubscribed()) {
             String errorMessage = subscribe(context);
             if (errorMessage != null) {
-                context.yield();
+                context.yieldForAWhile();
                 getLogger().error(errorMessage);
                 return;
             }

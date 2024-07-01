@@ -237,7 +237,7 @@ public class PutElasticsearchJson extends AbstractPutElasticsearch {
             } catch (final Exception ex) {
                 getLogger().error("Could not index documents.", ex);
                 transferFlowFilesOnException(ex, REL_FAILURE, session, false, originals.toArray(new FlowFile[0]));
-                context.yield();
+                context.yieldForAWhile();
             }
         } else {
             getLogger().warn("No FlowFiles successfully parsed for sending to Elasticsearch");

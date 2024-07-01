@@ -209,7 +209,7 @@ public class ConsumeAMQP extends AbstractAMQPProcessor<AMQPConsumer> {
             if (response == null) {
                 if (lastReceived == null) {
                     // If no messages received, then yield.
-                    context.yield();
+                    context.yieldForAWhile();
                 }
 
                 break;

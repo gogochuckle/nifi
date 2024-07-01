@@ -685,7 +685,7 @@ public class TailFile extends AbstractProcessor {
                     initStates(filesToTail, stateMap.toMap(), false, context.getProperty(START_POSITION).getValue());
                 } catch (IOException e) {
                     getLogger().error("Exception raised while attempting to recover state about where the tailing last left off", e);
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
             }
@@ -696,7 +696,7 @@ public class TailFile extends AbstractProcessor {
                 recoverState(context);
             } catch (IOException e) {
                 getLogger().error("Exception raised while attempting to recover state about where the tailing last left off", e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
 
@@ -704,7 +704,7 @@ public class TailFile extends AbstractProcessor {
         }
 
         if (states.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -713,7 +713,7 @@ public class TailFile extends AbstractProcessor {
                 processTailFile(context, session, tailFile);
             } catch (NulCharacterEncounteredException e) {
                 getLogger().warn("NUL character encountered in " + tailFile + " and '" + REREAD_ON_NUL.getDisplayName() + "' is set to 'true', yielding.");
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -737,7 +737,7 @@ public class TailFile extends AbstractProcessor {
             session.setState(sessionStates, scope);
         } catch (IOException e) {
             getLogger().error("Exception raised while attempting to cleanup session's state map", e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
     }
@@ -800,7 +800,7 @@ public class TailFile extends AbstractProcessor {
                     tfo.setState(new TailFileState(filename, file, fileChannel, position, timestamp, file.length(), checksum, tfo.getState().getBuffer()));
                 } catch (final IOException ioe) {
                     getLogger().error("Attempted to position Reader at current position in file {} but failed to do so due to {}", file, ioe.toString(), ioe);
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
             }
@@ -847,7 +847,7 @@ public class TailFile extends AbstractProcessor {
             file = new File(tailFile);
             reader = createReader(file, position);
             if (reader == null) {
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -907,7 +907,7 @@ public class TailFile extends AbstractProcessor {
             getLogger().debug("No data to consume; created no FlowFiles");
             tfo.setState(new TailFileState(tailFile, file, reader, position, timestamp, length, checksum, state.getBuffer()));
             persistState(tfo, session, context);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -1473,7 +1473,7 @@ public class TailFile extends AbstractProcessor {
                     // we want to continue on with the same logic of transferring non-zero flowfiles, removing 0-byte flowfiles,
                     // and maintaining our state.
                     getLogger().info("Encountered NUL character when tailing file {}; will yield", tailFile);
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             });
 

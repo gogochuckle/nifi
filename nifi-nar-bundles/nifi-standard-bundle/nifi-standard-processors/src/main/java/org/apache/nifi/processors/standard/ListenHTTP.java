@@ -567,7 +567,7 @@ public class ListenHTTP extends AbstractSessionFactoryProcessor {
             }
         } catch (Exception e) {
             getLogger().warn("Failed to start http server during initialization: " + e);
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException("Failed to initialize the server", e);
         }
 
@@ -581,7 +581,7 @@ public class ListenHTTP extends AbstractSessionFactoryProcessor {
             }
         }
 
-        context.yield();
+        context.yieldForAWhile();
     }
 
     @OnPrimaryNodeStateChange

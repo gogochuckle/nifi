@@ -610,7 +610,7 @@ public class ExecuteStateless extends AbstractProcessor implements Searchable {
 
             adjustCounters(session, dataflow, " (Failed attempts)");
             session.adjustCounter("Failed Invocations", 1, false);
-            context.yield();
+            context.yieldForAWhile();
 
             return;
         }
@@ -638,7 +638,7 @@ public class ExecuteStateless extends AbstractProcessor implements Searchable {
             final long now = System.currentTimeMillis();
             final long yieldMillis = yieldExpiration - now;
             if (yieldMillis > 0) {
-                context.yield();
+                context.yieldForAWhile();
             }
         }
 

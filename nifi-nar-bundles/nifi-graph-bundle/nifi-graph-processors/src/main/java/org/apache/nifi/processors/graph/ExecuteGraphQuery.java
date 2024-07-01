@@ -150,7 +150,7 @@ public class ExecuteGraphQuery extends AbstractGraphExecutor {
                 flowFile = session.putAttribute(flowFile, ERROR_MESSAGE, String.valueOf(exception.getMessage()));
                 session.transfer(flowFile, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

@@ -294,7 +294,7 @@ public class GetHDFSFileInfo extends AbstractHadoopProcessor {
             // However, if we have no FlowFile and we have connections coming from other Processors, then
             // we know that we should run only if we have a FlowFile.
             if (ff == null && context.hasNonLoopConnection()) {
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }

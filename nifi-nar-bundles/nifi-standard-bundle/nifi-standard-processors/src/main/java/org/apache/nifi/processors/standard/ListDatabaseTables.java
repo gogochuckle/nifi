@@ -294,7 +294,7 @@ public class ListDatabaseTables extends AbstractProcessor {
                         getLogger().error(
                           "Failed to retrieve observed last table fetches from the State Manager. Will not perform "
                           + "query until this is accomplished.", nfe);
-                        context.yield();
+                        context.yieldForAWhile();
                         return;
                     }
 

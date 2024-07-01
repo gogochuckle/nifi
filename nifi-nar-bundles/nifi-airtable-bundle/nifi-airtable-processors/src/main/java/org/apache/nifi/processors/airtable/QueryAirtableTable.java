@@ -258,7 +258,7 @@ public class QueryAirtableTable extends AbstractProcessor {
         } catch (IOException e) {
             throw new ProcessException("Failed to read Airtable records", e);
         } catch (RateLimitExceededException e) {
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException("Airtable REST API rate limit exceeded while reading records", e);
         }
 
@@ -272,7 +272,7 @@ public class QueryAirtableTable extends AbstractProcessor {
 
         final List<FlowFile> flowFiles = retrieveTableResult.getFlowFiles();
         if (flowFiles.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

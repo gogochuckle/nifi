@@ -156,7 +156,7 @@ public class ExceptionHandler<C> {
             case Penalize:
                 return session.penalize(flowFile);
             case Yield:
-                context.yield();
+                context.yieldForAWhile();
         }
         return flowFile;
     }

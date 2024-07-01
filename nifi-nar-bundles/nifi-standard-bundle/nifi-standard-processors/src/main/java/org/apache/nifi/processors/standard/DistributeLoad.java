@@ -372,7 +372,7 @@ public class DistributeLoad extends AbstractProcessor {
         if (!allDestinationsAvailable && strategy.requiresAllDestinationsAvailable()) {
             // can't transfer the FlowFiles. Roll back and yield
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -380,7 +380,7 @@ public class DistributeLoad extends AbstractProcessor {
         if (relationship == null) {
             // can't transfer the FlowFiles. Roll back and yield
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

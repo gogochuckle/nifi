@@ -298,12 +298,12 @@ public class MoveHDFS extends AbstractHadoopProcessor {
                 }
             }
         } catch (IOException e) {
-            context.yield();
+            context.yieldForAWhile();
             getLogger().warn("Error while retrieving list of files due to {}", new Object[]{e});
             return;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            context.yield();
+            context.yieldForAWhile();
             getLogger().warn("Interrupted while retrieving files", e);
             return;
         }
@@ -315,7 +315,7 @@ public class MoveHDFS extends AbstractHadoopProcessor {
             if (files.isEmpty()) {
                 // nothing to do!
                 session.remove(flowFile);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         } finally {
@@ -346,7 +346,7 @@ public class MoveHDFS extends AbstractHadoopProcessor {
         if (conf == null || ugi == null) {
             getLogger().error("Configuration or UserGroupInformation not configured properly");
             session.transfer(parentFlowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -437,7 +437,7 @@ public class MoveHDFS extends AbstractHadoopProcessor {
                     } catch (final Throwable t) {
                         getLogger().error("Failed to rename on HDFS due to {}", new Object[]{t});
                         session.transfer(session.penalize(flowFile), REL_FAILURE);
-                        context.yield();
+                        context.yieldForAWhile();
                     }
                     return null;
                 }

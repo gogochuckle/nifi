@@ -148,7 +148,7 @@ public class PutTCP extends AbstractPutEventProcessor<InputStream> {
             getLogger().error("Send Failed {}", flowFile, e);
             session.transfer(session.penalize(flowFile), REL_FAILURE);
             session.commitAsync();
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

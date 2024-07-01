@@ -411,7 +411,7 @@ public class PublishKafka_1_0 extends AbstractProcessor implements KafkaPublishC
 
         final PublisherPool pool = getPublisherPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

@@ -296,13 +296,13 @@ public class ScrollElasticsearchHttp extends AbstractElasticsearchHttpProcessor 
                             + "(hosts, username/password, etc.).",
                     ioe.getLocalizedMessage(), ioe);
             session.remove(flowFile);
-            context.yield();
+            context.yieldForAWhile();
 
         } catch (Exception e) {
             logger.error("Failed to read {} from Elasticsearch due to {}", flowFile,
                     e.getLocalizedMessage(), e);
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -363,7 +363,7 @@ public class ScrollElasticsearchHttp extends AbstractElasticsearchHttpProcessor 
                 logger.warn("Elasticsearch returned code {} with message {}, removing the flow file. This is likely a server problem, yielding...",
                         new Object[]{statusCode, getResponse.message()});
                 session.remove(flowFile);
-                context.yield();
+                context.yieldForAWhile();
             }  else {
                 logger.warn("Elasticsearch returned code {} with message {}", new Object[]{statusCode, getResponse.message()});
                 session.remove(flowFile);

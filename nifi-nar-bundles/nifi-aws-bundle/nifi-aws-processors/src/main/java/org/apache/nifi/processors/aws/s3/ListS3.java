@@ -475,7 +475,7 @@ public class ListS3 extends AbstractS3Processor implements VerifiableProcessor {
             restoreState(session);
         } catch (IOException ioe) {
             getLogger().error("Failed to restore processor state; yielding", ioe);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -554,7 +554,7 @@ public class ListS3 extends AbstractS3Processor implements VerifiableProcessor {
             getLogger().error("Failed to list contents of bucket due to {}", e, e);
             writer.finishListingExceptionally(e);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -576,7 +576,7 @@ public class ListS3 extends AbstractS3Processor implements VerifiableProcessor {
 
         if (totalListCount == 0) {
             getLogger().debug("No new objects in S3 bucket {} to list. Yielding.", new Object[]{bucket});
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -664,7 +664,7 @@ public class ListS3 extends AbstractS3Processor implements VerifiableProcessor {
                 getLogger().error("Failed to list contents of bucket due to {}", e, e);
                 writer.finishListingExceptionally(e);
                 session.rollback();
-                context.yield();
+                context.yieldForAWhile();
             }
         }
     }

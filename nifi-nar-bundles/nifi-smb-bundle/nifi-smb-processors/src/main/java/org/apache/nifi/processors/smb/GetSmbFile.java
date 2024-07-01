@@ -426,7 +426,7 @@ public class GetSmbFile extends AbstractProcessor {
                                 recentlyProcessed.clear();
 
                                 if (listing.isEmpty()) {
-                                    context.yield();
+                                    context.yieldForAWhile();
                                 }
                             } finally {
                                 queueLock.unlock();
@@ -553,7 +553,7 @@ public class GetSmbFile extends AbstractProcessor {
                 }
         } catch (Exception e) {
             logger.error("Could not establish smb connection because of error {}", new Object[]{e});
-            context.yield();
+            context.yieldForAWhile();
             smbClient.getServerList().unregister(hostname);
         }
     }

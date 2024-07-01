@@ -362,7 +362,7 @@ public class ConsumeKafka_2_6 extends AbstractProcessor implements KafkaClientCo
             // all of the partitions assigned.
             final int partitionCount = consumerPool.getPartitionCount();
             if (partitionCount != numAssignedPartitions) {
-                context.yield();
+                context.yieldForAWhile();
                 consumerPool.close();
 
                 throw new ProcessException("Illegal Partition Assignment: There are " + numAssignedPartitions + " partitions statically assigned using the partitions.* property names, but the Kafka" +
@@ -467,13 +467,13 @@ public class ConsumeKafka_2_6 extends AbstractProcessor implements KafkaClientCo
     public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException {
         final ConsumerPool pool = getConsumerPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         try (final ConsumerLease lease = pool.obtainConsumer(session, context)) {
             if (lease == null) {
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
 
@@ -484,17 +484,17 @@ public class ConsumeKafka_2_6 extends AbstractProcessor implements KafkaClientCo
                 }
 
                 if (!lease.commit()) {
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             } catch (final WakeupException we) {
                 getLogger().warn("Was interrupted while trying to communicate with Kafka with lease {}. "
                     + "Will roll back session and discard any partially received data.", lease);
             } catch (final KafkaException kex) {
                 getLogger().error("Exception while interacting with Kafka so will close the lease {}", lease, kex);
-                context.yield();
+                context.yieldForAWhile();
             } catch (final Throwable t) {
                 getLogger().error("Exception while processing data from kafka so will close the lease {}", lease, t);
-                context.yield();
+                context.yieldForAWhile();
             } finally {
                 activeLeases.remove(lease);
             }

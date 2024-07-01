@@ -377,7 +377,7 @@ public class EventDrivenSchedulingAgent extends AbstractSchedulingAgent {
                     logger.warn("Administratively Yielding {} due to uncaught Exception: ", worker.getProcessor());
                     logger.warn("", t);
 
-                    worker.yield(FormatUtils.getTimeDuration(adminYieldDuration, TimeUnit.NANOSECONDS), TimeUnit.NANOSECONDS);
+                    worker.yieldForAWhile(FormatUtils.getTimeDuration(adminYieldDuration, TimeUnit.NANOSECONDS), TimeUnit.NANOSECONDS);
                 }
             } finally {
                 // if the processor is no longer scheduled to run and this is the last thread,

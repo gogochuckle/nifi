@@ -211,7 +211,7 @@ public class ConsumeGCPubSub extends AbstractGCPubSubWithProxyProcessor {
                 getLogger().error("Google Cloud PubSub Subscriber was not properly created. Yielding the processor...");
             }
 
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

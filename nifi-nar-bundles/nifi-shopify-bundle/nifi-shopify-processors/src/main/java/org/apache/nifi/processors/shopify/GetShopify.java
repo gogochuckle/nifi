@@ -331,16 +331,16 @@ public class GetShopify extends AbstractProcessor {
                     } else {
                         getLogger().debug("Empty response when requested Shopify resource: [{}]", resourceName);
                         session.remove(flowFile);
-                        context.yield();
+                        context.yieldForAWhile();
                     }
                 } else if (response.statusCode() < 200 || response.statusCode() >= 300) {
                     if (response.statusCode() == TOO_MANY_REQUESTS) {
-                        context.yield();
+                        context.yieldForAWhile();
                         throw new ProcessException(String.format(
                                 "Rate limit exceeded, yielding before retrying request. HTTP %d error for requested URI [%s]",
                                 response.statusCode(), resourceName));
                     } else {
-                        context.yield();
+                        context.yieldForAWhile();
                         getLogger().warn("HTTP {} error for requested Shopify resource [{}]", response.statusCode(),
                                 resourceName);
                     }

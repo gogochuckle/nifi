@@ -149,7 +149,7 @@ public abstract class JmsConsumer extends AbstractProcessor {
         }
 
         if (processingSummary.getFlowFilesCreated() == 0) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

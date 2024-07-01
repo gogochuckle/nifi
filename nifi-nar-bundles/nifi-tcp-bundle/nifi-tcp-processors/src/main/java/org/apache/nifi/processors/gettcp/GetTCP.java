@@ -206,7 +206,7 @@ public class GetTCP extends AbstractSessionFactoryProcessor {
             this.delegatingMessageHandler = new NiFiDelegatingMessageHandler(sessionFactory);
         }
         this.run(context);
-        context.yield();
+        context.yieldForAWhile();
     }
 
     @OnStopped

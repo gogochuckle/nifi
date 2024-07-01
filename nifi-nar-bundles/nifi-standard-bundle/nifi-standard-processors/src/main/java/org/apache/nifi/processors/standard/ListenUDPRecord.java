@@ -299,7 +299,7 @@ public class ListenUDPRecord extends AbstractListenEventProcessor<StandardEvent>
                         session.remove(flowFile);
                     }
 
-                    context.yield();
+                    context.yieldForAWhile();
                     break;
                 }
             }

@@ -299,7 +299,7 @@ public class PutSlack extends AbstractProcessor {
                 getLogger().error("Failed to post message to Slack with response code {}", new Object[]{responseCode});
                 flowFile = session.penalize(flowFile);
                 session.transfer(flowFile, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
             }
         } catch (JsonParsingException e) {
             getLogger().error("Failed to parse JSON", e);
@@ -309,7 +309,7 @@ public class PutSlack extends AbstractProcessor {
             getLogger().error("Failed to open connection", e);
             flowFile = session.penalize(flowFile);
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

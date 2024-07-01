@@ -219,7 +219,7 @@ public class ListenTrapSNMP extends AbstractSessionFactoryProcessor implements V
         if (!snmpTrapReceiverHandler.isStarted()) {
             snmpTrapReceiverHandler.createTrapReceiver(processSessionFactory, getLogger());
         }
-        context.yield();
+        context.yieldForAWhile();
     }
 
     @OnStopped

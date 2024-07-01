@@ -192,7 +192,7 @@ public class CompareFuzzyHash extends AbstractFuzzyHashProcessor {
             default:
                 getLogger().error("Seems like the processor is configured to use unsupported algorithm '{}' ? Yielding.",
                         new Object[]{algorithm});
-                context.yield();
+                context.yieldForAWhile();
                 return;
         }
 

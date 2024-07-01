@@ -169,7 +169,7 @@ public class PutKinesisFirehose extends AbstractKinesisFirehoseProcessor {
         } catch (final Exception exception) {
             getLogger().error("Failed to publish to kinesis firehose {} with exception {}", new Object[]{flowFiles, exception});
             session.transfer(flowFiles, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

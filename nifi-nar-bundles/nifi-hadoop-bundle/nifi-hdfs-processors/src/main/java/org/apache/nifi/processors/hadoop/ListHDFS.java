@@ -252,7 +252,7 @@ public class ListHDFS extends AbstractHadoopProcessor {
             }
         } catch (IOException e) {
             getLogger().error("Failed to retrieve timestamp of last listing from the State Manager. Will not perform listing until this is accomplished.");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -304,7 +304,7 @@ public class ListHDFS extends AbstractHadoopProcessor {
             getLogger().info("Successfully created listing with {} new files from HDFS", writer.getListedFileCount());
         } else {
             getLogger().debug("There is no data to list. Yielding.");
-            context.yield();
+            context.yieldForAWhile();
         }
 
     }

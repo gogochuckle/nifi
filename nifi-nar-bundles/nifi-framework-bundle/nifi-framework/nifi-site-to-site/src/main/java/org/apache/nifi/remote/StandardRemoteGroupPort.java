@@ -223,21 +223,21 @@ public class StandardRemoteGroupPort extends RemoteGroupPort {
         try {
             transaction = client.createTransaction(transferDirection);
         } catch (final PortNotRunningException e) {
-            context.yield();
+            context.yieldForAWhile();
             this.targetRunning.set(false);
             final String message = String.format("%s failed to communicate with %s because the remote instance indicates that the port is not in a valid state", this, url);
             logger.error(message);
             remoteGroup.getEventReporter().reportEvent(Severity.ERROR, CATEGORY, message);
             throw new ProcessException(e);
         } catch (final UnknownPortException e) {
-            context.yield();
+            context.yieldForAWhile();
             this.targetExists.set(false);
             final String message = String.format("%s failed to communicate with %s because the remote instance indicates that the port no longer exists", this, url);
             logger.error(message);
             remoteGroup.getEventReporter().reportEvent(Severity.ERROR, CATEGORY, message);
             throw new ProcessException(e);
         } catch (final UnreachableClusterException e) {
-            context.yield();
+            context.yieldForAWhile();
             final String message = String.format("%s failed to communicate with %s due to %s", this, url, e.toString());
             logger.error(message);
             remoteGroup.getEventReporter().reportEvent(Severity.ERROR, CATEGORY, message);
@@ -257,7 +257,7 @@ public class StandardRemoteGroupPort extends RemoteGroupPort {
         if (transaction == null) {
             logger.debug("{} Unable to create transaction to communicate with; all peers must be penalized, so yielding context", this);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -267,7 +267,7 @@ public class StandardRemoteGroupPort extends RemoteGroupPort {
             } else {
                 final int numReceived = receiveFlowFiles(transaction, context, session);
                 if (numReceived == 0) {
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             }
 

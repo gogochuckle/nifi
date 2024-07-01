@@ -245,7 +245,7 @@ public class ExecuteProcess extends AbstractProcessor {
                 longRunningProcess = launchProcess(context, commandStrings, batchNanos, proxyOut);
             } catch (final IOException ioe) {
                 getLogger().error("Failed to create process due to {}", new Object[] { ioe });
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         } else {

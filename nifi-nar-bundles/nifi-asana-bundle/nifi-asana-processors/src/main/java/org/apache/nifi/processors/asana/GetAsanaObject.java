@@ -307,7 +307,7 @@ public class GetAsanaObject extends AbstractProcessor {
         }
 
         if (transferCount == 0) {
-            context.yield();
+            context.yieldForAWhile();
             getLogger().debug("Yielding, as there are no new FlowFiles.");
         }
 

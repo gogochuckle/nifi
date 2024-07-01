@@ -185,10 +185,10 @@ public class GetZendesk extends AbstractZendesk {
             }
         } else if (response.statusCode() == HTTP_TOO_MANY_REQUESTS) {
             getLogger().error("Rate limit exceeded for uri={}, yielding before retrying request.", uri);
-            context.yield();
+            context.yieldForAWhile();
         } else {
             getLogger().error("HTTP {} error for uri={} with response={}, yielding before retrying request.", response.statusCode(), uri, getResponseBody(response));
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

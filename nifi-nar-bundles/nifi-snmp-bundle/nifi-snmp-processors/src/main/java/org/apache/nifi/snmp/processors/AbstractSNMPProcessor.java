@@ -119,7 +119,7 @@ abstract class AbstractSNMPProcessor extends AbstractProcessor {
             getLogger().error("SNMP request failed, response error: " + snmpResponseStatus.getErrorMessage());
             processSession.getProvenanceReporter().modifyAttributes(flowFile, response.getTargetAddress() + provenanceAddress);
             processSession.transfer(flowFile, failure);
-            context.yield();
+            context.yieldForAWhile();
         } else {
             processSession.getProvenanceReporter().modifyAttributes(flowFile, response.getTargetAddress() + provenanceAddress);
             processSession.transfer(flowFile, success);

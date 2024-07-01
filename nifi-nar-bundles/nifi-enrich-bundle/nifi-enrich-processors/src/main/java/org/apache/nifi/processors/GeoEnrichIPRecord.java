@@ -305,7 +305,7 @@ public class GeoEnrichIPRecord extends AbstractEnrichIP {
         } catch (Exception ex) {
             getLogger().error("Error enriching records.", ex);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

@@ -496,7 +496,7 @@ public class ConsumeKinesisStream extends AbstractKinesisStreamProcessor {
             // after a Worker is registered successfully, nothing has to be done at onTrigger
             // new sessions are created when new messages are consumed by the Worker
             // and if the WorkerState is unexpectedly SHUT_DOWN, then we don't want to immediately re-enter onTrigger
-            context.yield();
+            context.yieldForAWhile();
 
             if (!stopped.get() && WorkerStateChangeListener.WorkerState.SHUT_DOWN == workerState.get()) {
                 throw new ProcessException("Worker has shutdown unexpectedly, possibly due to a configuration issue; check logs for details");

@@ -270,7 +270,7 @@ public class ConsumeEWS extends AbstractProcessor {
             this.transfer(emailMessage, context, processSession);
         } else {
             //No new messages found, yield the processor
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -541,7 +541,7 @@ public class ConsumeEWS extends AbstractProcessor {
             this.fillMessageQueueIfNecessary(context);
             emailMessage = this.messageQueue.poll(1, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
-            context.yield();
+            context.yieldForAWhile();
             this.logger.error("Failed retrieving messages from EWS.", e);
             Thread.currentThread().interrupt();
             this.logger.debug("Current thread is interrupted");

@@ -1086,7 +1086,7 @@ public class InvokeHTTP extends AbstractProcessor {
         } catch (final Exception e) {
             if (requestFlowFile == null) {
                 logger.error("Request Processing failed", e);
-                context.yield();
+                context.yieldForAWhile();
             } else {
                 logger.error("Request Processing failed: {}", requestFlowFile, e);
                 requestFlowFile = session.penalize(requestFlowFile);
@@ -1269,7 +1269,7 @@ public class InvokeHTTP extends AbstractProcessor {
     private void route(FlowFile request, FlowFile response, ProcessSession session, ProcessContext context, int statusCode) {
         // check if we should yield the processor
         if (!isSuccess(statusCode) && request == null) {
-            context.yield();
+            context.yieldForAWhile();
         }
 
         // If the property to output the response flowfile regardless of status code is set then transfer it

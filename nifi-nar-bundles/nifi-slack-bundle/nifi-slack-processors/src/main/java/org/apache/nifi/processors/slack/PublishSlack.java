@@ -233,7 +233,7 @@ public class PublishSlack extends AbstractProcessor {
     public void onTrigger(final ProcessContext context, final ProcessSession session) throws ProcessException {
         if (rateLimit.isLimitReached()) {
             getLogger().debug("Will not publish to Slack because rate limit has been reached");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -441,7 +441,7 @@ public class PublishSlack extends AbstractProcessor {
 
         final int retryAfterSeconds = getRetryAfterSeconds(t);
         rateLimit.retryAfter(Duration.ofSeconds(retryAfterSeconds));
-        context.yield();
+        context.yieldForAWhile();
         return rateLimited;
     }
 

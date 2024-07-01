@@ -170,7 +170,7 @@ public abstract class AbstractByQueryElasticsearch extends AbstractProcessor imp
                 input = session.putAttribute(input, getErrorAttribute(), e.getMessage());
                 session.transfer(input, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 }

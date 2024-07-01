@@ -228,6 +228,6 @@ public class ListenGRPC extends AbstractSessionFactoryProcessor {
     @Override
     public void onTrigger(ProcessContext context, ProcessSessionFactory sessionFactory) throws ProcessException {
         sessionFactoryReference.compareAndSet(null, sessionFactory);
-        context.yield();
+        context.yieldForAWhile();
     }
 }

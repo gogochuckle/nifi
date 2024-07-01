@@ -465,7 +465,7 @@ public class UpdateAttribute extends AbstractProcessor implements Searchable {
         } catch (IOException e) {
             logger.error("Failed to get the initial state when processing {}; transferring FlowFile back to its incoming queue", incomingFlowFile, e);
             session.transfer(incomingFlowFile);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -535,7 +535,7 @@ public class UpdateAttribute extends AbstractProcessor implements Searchable {
                 }
 
                 session.transfer(incomingFlowFile, REL_FAILED_SET_STATE);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }

@@ -397,7 +397,7 @@ public class GetFile extends AbstractProcessor {
                         recentlyProcessed.clear();
 
                         if (listing.isEmpty()) {
-                            context.yield();
+                            context.yieldForAWhile();
                         }
                     } finally {
                         queueLock.unlock();

@@ -193,7 +193,7 @@ public abstract class BinFiles extends AbstractSessionFactoryProcessor {
         final int binsProcessed = processBins(context, sessionFactory);
         //If we accomplished nothing then let's yield
         if (binningResult.getFlowFilesBinned() == 0 && binsMigrated == 0 && binsProcessed == 0) {
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

@@ -207,7 +207,7 @@ public abstract class AbstractWebSocketGatewayProcessor extends AbstractSessionF
             register(context);
         }
 
-        context.yield();//nothing really to do here since handling WebSocket messages is done at ControllerService.
+        context.yieldForAWhile();//nothing really to do here since handling WebSocket messages is done at ControllerService.
     }
 
     private void register(ProcessContext context) {
@@ -216,7 +216,7 @@ public abstract class AbstractWebSocketGatewayProcessor extends AbstractSessionF
         } catch (IOException | WebSocketConfigurationException e) {
             // Deregister processor if it failed so that it can retry next onTrigger.
             deregister();
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException("Failed to register processor to WebSocket service due to: " + e, e);
         }
     }

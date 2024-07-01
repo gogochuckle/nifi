@@ -35,7 +35,7 @@ public interface InvocationResult {
         }
     };
 
-    public static InvocationResult yield(final String explanation) {
+    public static InvocationResult yieldForAWhile(final String explanation) {
         return new InvocationResult() {
             @Override
             public boolean isYield() {

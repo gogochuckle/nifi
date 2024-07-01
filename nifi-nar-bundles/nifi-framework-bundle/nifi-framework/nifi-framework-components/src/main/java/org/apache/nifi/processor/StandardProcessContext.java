@@ -185,9 +185,9 @@ public class StandardProcessContext implements ProcessContext, ControllerService
     }
 
     @Override
-    public void yield() {
+    public void yieldForAWhile() {
         verifyTaskActive();
-        procNode.yield();
+        procNode.yieldForAWhile();
     }
 
     @Override

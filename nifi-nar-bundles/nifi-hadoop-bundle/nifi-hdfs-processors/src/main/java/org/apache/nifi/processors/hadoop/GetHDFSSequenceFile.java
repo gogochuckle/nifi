@@ -111,7 +111,7 @@ public class GetHDFSSequenceFile extends GetHDFS {
             } catch (Throwable t) {
                 logger.error("Error retrieving file {} from HDFS due to {}", new Object[]{file, t});
                 session.rollback();
-                context.yield();
+                context.yieldForAWhile();
             } finally {
                 stopWatch.stop();
                 long totalSize = 0;

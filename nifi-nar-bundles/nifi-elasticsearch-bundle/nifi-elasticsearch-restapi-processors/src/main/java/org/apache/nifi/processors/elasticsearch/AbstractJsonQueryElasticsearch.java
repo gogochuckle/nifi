@@ -232,7 +232,7 @@ public abstract class AbstractJsonQueryElasticsearch<Q extends JsonQueryParamete
                 input = session.putAttribute(input, "elasticsearch.query.error", ex.getMessage());
                 session.transfer(input, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

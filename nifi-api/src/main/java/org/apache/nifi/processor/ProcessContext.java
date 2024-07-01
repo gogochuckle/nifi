@@ -70,7 +70,7 @@ public interface ProcessContext extends PropertyContext, ClusterContext {
      * of the current thread.
      * </p>
      */
-    void yield();
+    void yieldForAWhile();
 
     /**
      * @return the maximum number of threads that may be executing this

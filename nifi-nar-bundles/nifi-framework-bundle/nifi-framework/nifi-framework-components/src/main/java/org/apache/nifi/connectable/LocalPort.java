@@ -131,7 +131,7 @@ public class LocalPort extends AbstractPort {
         if (shouldTransfer) {
             if (!dataValve.tryOpenFlowOutOfGroup(getProcessGroup())) {
                 logger.trace("{} will not transfer data out of Process Group because Data Valve prevents data from flowing out of the Process Group", this);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
 
@@ -141,7 +141,7 @@ public class LocalPort extends AbstractPort {
                 dataValve.closeFlowOutOfGroup(getProcessGroup());
             }
         } else {
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -150,7 +150,7 @@ public class LocalPort extends AbstractPort {
         final boolean obtainedClaim = flowFileGate.tryClaim(this);
         if (!obtainedClaim) {
             logger.trace("{} failed to obtain claim for FlowFileGate. Will yield and will not transfer any FlowFiles", this);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

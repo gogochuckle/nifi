@@ -587,7 +587,7 @@ public class CaptureChangeMySQL extends AbstractSessionFactoryProcessor {
         } catch (final IOException ioe) {
             logger.error("Failed to retrieve observed maximum values from the State Manager. Will not attempt "
                     + "connection until this is accomplished.", ioe);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -701,7 +701,7 @@ public class CaptureChangeMySQL extends AbstractSessionFactoryProcessor {
                     binlogClient.unregisterEventListener(eventListener);
                 }
             }
-            context.yield();
+            context.yieldForAWhile();
             binlogClient = null;
             throw new ProcessException(e.getMessage(), e);
         }
@@ -738,7 +738,7 @@ public class CaptureChangeMySQL extends AbstractSessionFactoryProcessor {
             }
 
             // Try again later
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -761,7 +761,7 @@ public class CaptureChangeMySQL extends AbstractSessionFactoryProcessor {
                 queue.clear();
                 currentSession.rollback();
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

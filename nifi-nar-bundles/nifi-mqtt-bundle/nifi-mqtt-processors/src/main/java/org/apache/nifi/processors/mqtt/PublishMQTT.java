@@ -290,7 +290,7 @@ public class PublishMQTT extends AbstractMQTTProcessor {
             mqttClient.connect();
         } catch (Exception e) {
             logger.error("Connection failed to {}. Yielding processor", clientProperties.getRawBrokerUris(), e);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

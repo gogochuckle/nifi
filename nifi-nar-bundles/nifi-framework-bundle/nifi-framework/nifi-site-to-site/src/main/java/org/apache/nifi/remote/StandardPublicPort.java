@@ -154,7 +154,7 @@ public class StandardPublicPort extends AbstractPort implements PublicPort {
         }
 
         if (flowFileRequest == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

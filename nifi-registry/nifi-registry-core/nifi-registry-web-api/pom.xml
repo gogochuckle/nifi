@@ -151,13 +151,13 @@
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
                 <version>1.7.1</version>
-                <executions>
+                <!--<executions>
                     <execution>
                         <id>download-swagger-ui</id>
-                        <!-- This plugin downloads swagger UI static assets during the build, to be
+                        &lt;!&ndash; This plugin downloads swagger UI static assets during the build, to be
                              served by the web app to render the dynamically generated Swagger spec.
                              For offline development, or to build without the swagger UI, activate
-                             the "no-swagger-ui" maven profile during the build with the "-P" flag -->
+                             the "no-swagger-ui" maven profile during the build with the "-P" flag &ndash;&gt;
                         <goals>
                             <goal>wget</goal>
                         </goals>
@@ -167,7 +167,7 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
-                </executions>
+                </executions>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

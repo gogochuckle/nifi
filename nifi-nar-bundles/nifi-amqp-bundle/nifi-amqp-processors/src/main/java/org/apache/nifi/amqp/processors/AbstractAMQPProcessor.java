@@ -214,7 +214,7 @@ abstract class AbstractAMQPProcessor<T extends AMQPWorker> extends AbstractProce
                 resource = createResource(context);
             } catch (Exception e) {
                 getLogger().error("Failed to initialize AMQP client", e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -228,11 +228,11 @@ abstract class AbstractAMQPProcessor<T extends AMQPWorker> extends AbstractProce
             }
         } catch (AMQPException | AMQPRollbackException e) {
             getLogger().error("AMQP failure, dropping the client", e);
-            context.yield();
+            context.yieldForAWhile();
             closeResource(resource);
         } catch (Exception e) {
             getLogger().error("Processor failure", e);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

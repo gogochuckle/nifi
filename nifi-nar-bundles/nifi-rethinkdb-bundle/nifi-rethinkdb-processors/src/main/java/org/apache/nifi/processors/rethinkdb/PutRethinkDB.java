@@ -192,7 +192,7 @@ public class PutRethinkDB extends AbstractRethinkDBProcessor {
                     exception.getLocalizedMessage(), exception);
             flowFile = session.putAttribute(flowFile, RETHINKDB_ERROR_MESSAGE, String.valueOf(exception.getMessage()));
             session.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

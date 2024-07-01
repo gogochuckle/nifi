@@ -346,7 +346,7 @@ public class GetJMSTopic extends JmsConsumer {
                 this.wrappedConsumer = consumer;
             } catch (final JMSException e) {
                 logger.error("Failed to connect to JMS Server due to {}", new Object[]{e});
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }

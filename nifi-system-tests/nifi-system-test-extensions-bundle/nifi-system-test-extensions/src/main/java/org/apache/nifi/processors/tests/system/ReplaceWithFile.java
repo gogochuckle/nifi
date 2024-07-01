@@ -63,7 +63,7 @@ public class ReplaceWithFile extends AbstractProcessor {
         final File file = new File(filename);
         if (!file.exists()) {
             getLogger().debug("File {} does not yet exist so will yield", file.getAbsolutePath());
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

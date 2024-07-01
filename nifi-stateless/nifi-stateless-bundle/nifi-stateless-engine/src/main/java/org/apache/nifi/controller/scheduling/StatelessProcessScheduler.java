@@ -245,7 +245,7 @@ public class StatelessProcessScheduler implements ProcessScheduler {
     }
 
     @Override
-    public void yield(final ProcessorNode procNode) {
+    public void yieldForAWhile(final ProcessorNode procNode) {
     }
 
     @Override

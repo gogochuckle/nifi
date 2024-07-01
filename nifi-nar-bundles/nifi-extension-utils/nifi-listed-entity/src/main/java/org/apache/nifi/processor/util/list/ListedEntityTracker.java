@@ -273,7 +273,7 @@ public class ListedEntityTracker<T extends ListableEntity> {
 
         if (listedEntities.size() == 0) {
             logger.debug("No entity is listed. Yielding.");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -312,7 +312,7 @@ public class ListedEntityTracker<T extends ListableEntity> {
 
         if (updatedEntities.isEmpty() && oldEntityIds.isEmpty()) {
             logger.debug("None of updated or old entity was found. Yielding.");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

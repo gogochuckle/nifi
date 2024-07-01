@@ -272,7 +272,7 @@ public class EnforceOrder extends AbstractProcessor {
             stateMap = session.getState(Scope.LOCAL);
         } catch (final IOException e) {
             getLogger().error("Failed to retrieve state from StateManager due to {}" + e, e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

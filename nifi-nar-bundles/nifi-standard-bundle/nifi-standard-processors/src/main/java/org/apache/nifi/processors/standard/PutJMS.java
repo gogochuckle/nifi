@@ -177,7 +177,7 @@ public class PutJMS extends AbstractProcessor {
             } catch (final JMSException e) {
                 logger.error("Failed to connect to JMS Server due to {}", new Object[]{e});
                 session.transfer(flowFiles, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -231,7 +231,7 @@ public class PutJMS extends AbstractProcessor {
                 } catch (final JMSException e) {
                     logger.error("Failed to send {} to JMS Server due to {}", new Object[]{flowFile, e});
                     session.transfer(flowFiles, REL_FAILURE);
-                    context.yield();
+                    context.yieldForAWhile();
 
                     try {
                         jmsSession.rollback();
@@ -256,7 +256,7 @@ public class PutJMS extends AbstractProcessor {
             } catch (JMSException e) {
                 logger.error("Failed to commit JMS Session due to {} and transferred to 'failure'", new Object[]{e});
                 session.transfer(flowFiles, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
                 wrappedProducer.close(logger);
             }
         } finally {

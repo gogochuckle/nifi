@@ -238,7 +238,7 @@ public class PutDynamoDBRecord extends AbstractDynamoDBProcessor {
             // When DynamoDB returns with {@code ProvisionedThroughputExceededException}, the client reached it's write limitation and
             // should be retried at a later time. We yield the processor and the FlowFile is considered unprocessed (partially processed) due to temporary write limitations.
             // More about throughput limitations: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
-            context.yield();
+            context.yieldForAWhile();
             session.transfer(outgoingFlowFile, REL_UNPROCESSED);
         } else if (cause instanceof AmazonServiceException) {
             getLogger().error("Could not process FlowFile due to server exception: " + message, error);

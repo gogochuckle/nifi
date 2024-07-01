@@ -480,14 +480,14 @@ public abstract class AbstractExecuteSQL extends AbstractProcessor {
             if (fileToProcess == null) {
                 // This can happen if any exceptions occur while setting up the connection, statement, etc.
                 logger.error("Unable to execute SQL select query [{}]. No FlowFile to route to failure", selectQuery, e);
-                context.yield();
+                context.yieldForAWhile();
             } else {
                 if (context.hasIncomingConnection()) {
                     logger.error("Unable to execute SQL select query [{}] for {} routing to failure", selectQuery, fileToProcess, e);
                     fileToProcess = session.penalize(fileToProcess);
                 } else {
                     logger.error("Unable to execute SQL select query [{}] routing to failure", selectQuery, e);
-                    context.yield();
+                    context.yieldForAWhile();
                 }
                 session.putAttribute(fileToProcess,RESULT_ERROR_MESSAGE,e.getMessage());
                 session.transfer(fileToProcess, REL_FAILURE);

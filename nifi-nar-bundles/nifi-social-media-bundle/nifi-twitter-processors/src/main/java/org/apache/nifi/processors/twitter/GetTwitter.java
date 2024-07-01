@@ -376,7 +376,7 @@ public class GetTwitter extends AbstractProcessor {
         if (client == null || client.isDone()) {
             connectNewClient();
             if (client.isDone()) {
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -398,7 +398,7 @@ public class GetTwitter extends AbstractProcessor {
 
         final String tweet = messageQueue.poll();
         if (tweet == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

@@ -337,7 +337,7 @@ public class MonitorActivity extends AbstractProcessor {
                 session.transfer(inactiveFlowFile, REL_INACTIVE);
                 logger.info("Transferred {} to 'inactive'", new Object[]{inactiveFlowFile});
             } else {
-                context.yield();    // no need to dominate CPU checking times; let other processors run for a bit.
+                context.yieldForAWhile();    // no need to dominate CPU checking times; let other processors run for a bit.
             }
 
         } else {

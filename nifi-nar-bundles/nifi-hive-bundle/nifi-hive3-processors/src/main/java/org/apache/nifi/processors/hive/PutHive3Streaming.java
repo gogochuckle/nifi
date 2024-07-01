@@ -550,7 +550,7 @@ public class PutHive3Streaming extends AbstractProcessor {
                 session.transfer(flowFile, Relationship.SELF);
             } catch (ConnectionError ce) {
                 // If we can't connect to the metastore, yield the processor
-                context.yield();
+                context.yieldForAWhile();
                 throw new ProcessException("A connection to metastore cannot be established", ce);
             } catch (ShouldRetryException e) {
                 // This exception is already a result of adjusting an error, so simply transfer the FlowFile to retry. Still need to abort the txn

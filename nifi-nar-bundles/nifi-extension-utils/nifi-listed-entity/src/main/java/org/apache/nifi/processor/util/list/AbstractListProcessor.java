@@ -556,7 +556,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
 
         } catch (final IOException re) {
             getLogger().error("Failed to remove previous state from the State Manager.", re.getMessage(), re);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -566,13 +566,13 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
             entityList = performListing(context, IGNORE_MIN_TIMESTAMP_VALUE, ListingMode.EXECUTION);
         } catch (final IOException pe) {
             getLogger().error("Failed to perform listing on remote host due to {}", pe.getMessage(), pe);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         if (entityList == null || entityList.isEmpty()) {
             getLogger().debug("No data found: yielding");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -588,7 +588,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
                 createRecordsForEntities(context, session, orderedEntries);
             } catch (final IOException | SchemaNotFoundException e) {
                 getLogger().error("Failed to write listing to FlowFile", e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         } else {
@@ -607,7 +607,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
                 justElectedPrimaryNode = false;
             } catch (final IOException ioe) {
                 getLogger().error("Failed to retrieve timestamp of last listing from the State Manager. Will not perform listing until this is accomplished.");
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -671,13 +671,13 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
             }
         } catch (final IOException e) {
             getLogger().error("Failed to perform listing on remote host due to {}", e.getMessage(), e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         if (orderedEntries.isEmpty()) {
             getLogger().debug("There is no data to list: yielding");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -687,7 +687,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
                 createRecordsForEntities(context, session, orderedEntries);
             } catch (final IOException | SchemaNotFoundException e) {
                 getLogger().error("Failed to write listing to FlowFile", e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         } else {
@@ -740,12 +740,12 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
                 justElectedPrimaryNode = false;
                 if (noUpdateRequired) {
                     getLogger().debug("No update required for last listed entity: yielding");
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
             } catch (final IOException ioe) {
                 getLogger().error("Failed to retrieve timestamp of last listing from the State Manager. Will not perform listing until this is accomplished.");
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }
@@ -758,13 +758,13 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
             entityList = performListing(context, minTimestampToListMillis, ListingMode.EXECUTION);
         } catch (final IOException e) {
             getLogger().error("Failed to perform listing on remote host due to {}", e.getMessage(), e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         if (entityList == null || entityList.isEmpty()) {
             getLogger().debug("No data found matching minimum timestamp [{}]: yielding", minTimestampToListMillis);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -825,7 +825,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
 
                 if (minimalListingLagNotPassed) {
                     getLogger().debug("Minimal listing lag not passed: yielding");
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
 
@@ -834,7 +834,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
 
                 if (latestListedEntryIsUpToDate) {
                     getLogger().debug("Latest entry already listed with timestamp [{}]: yielding", latestListedEntryTimestampThisCycleMillis);
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
 
@@ -857,7 +857,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
                     entitiesListed = createRecordsForEntities(context, session, orderedEntries);
                 } catch (final IOException | SchemaNotFoundException e) {
                     getLogger().error("Failed to write listing to FlowFile", e);
-                    context.yield();
+                    context.yieldForAWhile();
                     return;
                 }
             } else {
@@ -909,7 +909,7 @@ public abstract class AbstractListProcessor<T extends ListableEntity> extends Ab
             lastRunTimeNanos = currentRunTimeNanos;
         } else {
             getLogger().debug("There is no data to list: yielding");
-            context.yield();
+            context.yieldForAWhile();
 
             // lastListingTime = 0 so that we don't continually poll the distributed cache / local file system
             if (lastListedLatestEntryTimestampMillis == null) {

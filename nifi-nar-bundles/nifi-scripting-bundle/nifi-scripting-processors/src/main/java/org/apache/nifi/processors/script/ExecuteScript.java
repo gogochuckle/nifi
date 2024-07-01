@@ -243,7 +243,7 @@ public class ExecuteScript extends AbstractSessionFactoryProcessor implements Se
                 // However if the incoming relationship is full of flow files, this processor will keep failing and could
                 // cause resource exhaustion. In case a user does not want to yield, it can be set to 0s in the processor
                 // configuration.
-                context.yield();
+                context.yieldForAWhile();
                 throw new ProcessException(t);
             }
         } catch (final Throwable t) {

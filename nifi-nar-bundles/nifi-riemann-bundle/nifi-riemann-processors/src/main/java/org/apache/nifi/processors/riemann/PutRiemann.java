@@ -268,7 +268,7 @@ public class PutRiemann extends AbstractProcessor {
         if (client != null) {
           client.close();
         }
-        context.yield();
+        context.yieldForAWhile();
         throw new ProcessException(String.format("Unable to connect to Riemann [%s:%d] (%s)\n%s", host, port, transport, e.getMessage()));
       }
     }
@@ -310,7 +310,7 @@ public class PutRiemann extends AbstractProcessor {
       if (transport == Transport.TCP) {
         Proto.Msg returnMessage = riemannClient.sendEvents(eventsQueue).deref(writeTimeout, TimeUnit.MILLISECONDS);
         if (returnMessage == null) {
-          context.yield();
+          context.yieldForAWhile();
           throw new ProcessException("Timed out writing to Riemann!");
         }
       } else {
@@ -319,7 +319,7 @@ public class PutRiemann extends AbstractProcessor {
       riemannClient.flush();
       session.transfer(successfulFlowFiles, REL_SUCCESS);
     } catch (Exception e) {
-      context.yield();
+      context.yieldForAWhile();
       session.transfer(incomingFlowFiles);
       throw new ProcessException("Failed writing to Riemann\n" + e.getMessage());
     }

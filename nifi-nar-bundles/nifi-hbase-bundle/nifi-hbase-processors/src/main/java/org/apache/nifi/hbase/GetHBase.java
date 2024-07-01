@@ -414,7 +414,7 @@ public class GetHBase extends AbstractProcessor implements VisibilityFetchSuppor
         } finally {
             // if we failed, we want to yield so that we don't hammer hbase. If we succeed, then we have
             // pulled all of the records, so we want to wait a bit before hitting hbase again anyway.
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

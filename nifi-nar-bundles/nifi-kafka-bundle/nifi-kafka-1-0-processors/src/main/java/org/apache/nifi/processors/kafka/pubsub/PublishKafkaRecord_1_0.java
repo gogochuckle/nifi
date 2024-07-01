@@ -430,7 +430,7 @@ public class PublishKafkaRecord_1_0 extends AbstractProcessor implements KafkaCl
 
         final PublisherPool pool = getPublisherPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

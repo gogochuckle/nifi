@@ -191,7 +191,7 @@ public class RollbackOnFailure {
             // So, administratively yield the process.
             if (functionContext.isRollbackOnFailure()) {
                 logger.warn("Administratively yielding {} after rolling back due to {}", context.getName(), t, t);
-                context.yield();
+                context.yieldForAWhile();
             }
         });
     }

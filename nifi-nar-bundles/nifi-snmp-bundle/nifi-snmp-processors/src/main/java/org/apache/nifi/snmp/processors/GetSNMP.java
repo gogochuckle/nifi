@@ -174,7 +174,7 @@ public class GetSNMP extends AbstractSNMPProcessor {
             }
         } catch (SNMPWalkException e) {
             getLogger().error(e.getMessage());
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -214,7 +214,7 @@ public class GetSNMP extends AbstractSNMPProcessor {
             }
         } catch (IOException e) {
             getLogger().error("Failed to send request to the agent. Check if the agent supports the used version.", e);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 
@@ -235,7 +235,7 @@ public class GetSNMP extends AbstractSNMPProcessor {
         } else {
             getLogger().warn("No SNMP specific attributes found in flowfile.");
             processSession.transfer(flowFile, REL_FAILURE);
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

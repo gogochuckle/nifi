@@ -177,7 +177,7 @@ public class GetHDFSEvents extends AbstractHadoopProcessor {
             }
         } catch (IOException e) {
             getLogger().error("Unable to retrieve last transaction ID. Must retrieve last processed transaction ID before processing can occur.", e);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -224,7 +224,7 @@ public class GetHDFSEvents extends AbstractHadoopProcessor {
             }
         } catch (IOException | InterruptedException e) {
             getLogger().error("Unable to get notification information: {}", new Object[]{e});
-            context.yield();
+            context.yieldForAWhile();
             return;
         } catch (MissingEventsException e) {
             // set lastTxId to -1 and update state. This may cause events not to be processed. The reason this exception is thrown is described in the

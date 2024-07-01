@@ -381,14 +381,14 @@ public class PutElasticsearchHttp extends AbstractElasticsearchHttpProcessor {
                     // Something went wrong when parsing the response, log the error and route to failure
                     logger.error("Error parsing Bulk API response: {}", ioe.getMessage(), ioe);
                     session.transfer(flowFilesToTransfer, REL_FAILURE);
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             } else if (statusCode / 100 == 5) {
                 // 5xx -> RETRY, but a server error might last a while, so yield
                 logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to retry. This is likely a server problem, yielding...",
                         new Object[]{statusCode, getResponse.message()});
                 session.transfer(flowFilesToTransfer, REL_RETRY);
-                context.yield();
+                context.yieldForAWhile();
             } else {  // 1xx, 3xx, 4xx, etc. -> NO RETRY
                 logger.warn("Elasticsearch returned code {} with message {}, transferring flow file to failure", new Object[]{statusCode, getResponse.message()});
                 session.transfer(flowFilesToTransfer, REL_FAILURE);

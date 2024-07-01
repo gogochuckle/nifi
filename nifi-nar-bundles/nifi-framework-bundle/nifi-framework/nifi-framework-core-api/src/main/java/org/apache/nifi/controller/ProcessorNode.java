@@ -101,7 +101,7 @@ public abstract class ProcessorNode extends AbstractComponentNode implements Con
     public abstract void setProcessor(LoggableComponent<Processor> processor);
 
     @Override
-    public abstract void yield(long period, TimeUnit timeUnit);
+    public abstract void yieldForAWhile(long period, TimeUnit timeUnit);
 
     public abstract void setAutoTerminatedRelationships(Set<Relationship> relationships);
 

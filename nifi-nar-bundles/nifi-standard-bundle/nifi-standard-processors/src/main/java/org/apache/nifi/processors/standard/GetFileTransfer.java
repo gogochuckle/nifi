@@ -126,7 +126,7 @@ public abstract class GetFileTransfer extends AbstractProcessor {
                     fetchListing(context, session, transfer);
                     lastPollTime.set(System.currentTimeMillis());
                 } catch (final IOException e) {
-                    context.yield();
+                    context.yieldForAWhile();
 
                     try {
                         transfer.close();
@@ -145,7 +145,7 @@ public abstract class GetFileTransfer extends AbstractProcessor {
         fileQueue = fileQueueRef.get();
         if (fileQueue == null || fileQueue.isEmpty()) {
             // nothing to do!
-            context.yield();
+            context.yieldForAWhile();
             if (transfer != null) {
                 try {
                     transfer.close();
@@ -211,7 +211,7 @@ public abstract class GetFileTransfer extends AbstractProcessor {
 
                     flowFilesReceived.put(flowFile, file.getFullPathFileName());
                 } catch (final IOException e) {
-                    context.yield();
+                    context.yieldForAWhile();
                     logger.error("Unable to retrieve file {} due to {}", new Object[]{file.getFullPathFileName(), e});
                     try {
                         transfer.close();
@@ -222,7 +222,7 @@ public abstract class GetFileTransfer extends AbstractProcessor {
                     session.rollback();
                     return;
                 } catch (final FlowFileAccessException e) {
-                    context.yield();
+                    context.yieldForAWhile();
                     logger.error("Unable to retrieve file {} due to {}", file.getFullPathFileName(), e.getCause(), e);
 
                     try {

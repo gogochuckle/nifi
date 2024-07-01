@@ -418,12 +418,12 @@ public class GetSolr extends SolrProcessor {
 
             session.setState(stateMap, Scope.CLUSTER);
         } catch (final SolrServerException | SchemaNotFoundException | IOException e) {
-            context.yield();
+            context.yieldForAWhile();
             session.rollback();
             logger.error("Failed to execute query {} due to {}", solrQuery.toString(), e, e);
             throw new ProcessException(e);
         } catch (final Throwable t) {
-            context.yield();
+            context.yieldForAWhile();
             session.rollback();
             logger.error("Failed to execute query {} due to {}", solrQuery.toString(), t, t);
             throw t;

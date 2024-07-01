@@ -310,7 +310,7 @@ public class ConsumeTwitter extends AbstractProcessor {
 
         final String firstTweet = messageQueue.poll();
         if (firstTweet == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

@@ -185,7 +185,7 @@ public class ConsumeGCPubSubLite extends AbstractGCPubSubProcessor implements Ve
     public void onTrigger(final ProcessContext context, final ProcessSession session) throws ProcessException {
         if (subscriber == null) {
             getLogger().error("Google Cloud PubSub Lite Subscriber was not properly created. Yielding the processor...");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -196,7 +196,7 @@ public class ConsumeGCPubSubLite extends AbstractGCPubSubProcessor implements Ve
 
         final Message message = messages.poll();
         if (message == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

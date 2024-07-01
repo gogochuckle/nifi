@@ -242,12 +242,12 @@ public class GetHubSpot extends AbstractProcessor {
                 session.getProvenanceReporter().receive(flowFile, uri.toString());
             } else {
                 getLogger().debug("Empty response when requested HubSpot endpoint: [{}]", endpoint);
-                context.yield();
+                context.yieldForAWhile();
                 session.remove(flowFile);
             }
             updateState(session, stateMap);
         } else if (response.statusCode() == TOO_MANY_REQUESTS) {
-            context.yield();
+            context.yieldForAWhile();
             throw new ProcessException(String.format("Rate limit exceeded, yielding before retrying request. HTTP %d error for requested URI [%s]", response.statusCode(), uri));
         } else {
             final String responseBody = getResponseBodyAsString(context, response, uri);
@@ -259,7 +259,7 @@ public class GetHubSpot extends AbstractProcessor {
         try {
             return IOUtils.toString(response.body(), StandardCharsets.UTF_8);
         } catch (final IOException e) {
-            context.yield();
+            context.yieldForAWhile();
             throw new UncheckedIOException(String.format("Reading HTTP response body for requested URI [%s] failed", uri), e);
         }
     }

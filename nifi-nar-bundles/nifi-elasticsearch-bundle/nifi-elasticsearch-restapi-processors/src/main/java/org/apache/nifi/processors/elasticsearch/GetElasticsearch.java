@@ -256,7 +256,7 @@ public class GetElasticsearch extends AbstractProcessor implements Elasticsearch
                 input = session.putAttribute(input, "elasticsearch.get.error", ex.getMessage());
                 session.transfer(input, REL_FAILURE);
             }
-            context.yield();
+            context.yieldForAWhile();
         }
     }
 

@@ -218,7 +218,7 @@ public interface ProcessScheduler {
      *
      * @param procNode processor
      */
-    void yield(ProcessorNode procNode);
+    void yieldForAWhile(ProcessorNode procNode);
 
     /**
      * Stops scheduling the given Reporting Task to run

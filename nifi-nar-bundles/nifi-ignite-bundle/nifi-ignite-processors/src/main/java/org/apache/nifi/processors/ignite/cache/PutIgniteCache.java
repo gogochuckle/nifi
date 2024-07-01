@@ -276,7 +276,7 @@ public class PutIgniteCache extends AbstractIgniteCacheProcessor {
                 } catch (Exception e) {
                     getLogger().error("Failed to insert {} into IgniteDB due to {}", flowFile, e, e);
                     session.transfer(flowFile, REL_FAILURE);
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             }
         } finally {

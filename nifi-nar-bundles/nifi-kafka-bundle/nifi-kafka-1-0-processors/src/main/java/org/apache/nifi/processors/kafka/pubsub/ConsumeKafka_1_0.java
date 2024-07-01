@@ -370,13 +370,13 @@ public class ConsumeKafka_1_0 extends AbstractProcessor implements KafkaClientCo
     public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException {
         final ConsumerPool pool = getConsumerPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         try (final ConsumerLease lease = pool.obtainConsumer(session, context)) {
             if (lease == null) {
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
 
@@ -386,7 +386,7 @@ public class ConsumeKafka_1_0 extends AbstractProcessor implements KafkaClientCo
                     lease.poll();
                 }
                 if (this.isScheduled() && !lease.commit()) {
-                    context.yield();
+                    context.yieldForAWhile();
                 }
             } catch (final WakeupException we) {
                 getLogger().warn("Was interrupted while trying to communicate with Kafka with lease {}. "

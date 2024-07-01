@@ -341,7 +341,7 @@ public class InvokeAWSGatewayApi extends AbstractAWSGatewayApiProcessor {
                                  getRelationshipForName(REL_FAILURE_NAME, getRelationships()));
             } else {
                 logger.error("Yielding processor due to exception encountered as a source processor: {}", e);
-                context.yield();
+                context.yieldForAWhile();
             }
 
             // cleanup response flowfile, if applicable

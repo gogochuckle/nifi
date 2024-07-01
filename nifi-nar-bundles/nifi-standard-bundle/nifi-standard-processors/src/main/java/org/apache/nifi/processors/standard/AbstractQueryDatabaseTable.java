@@ -249,7 +249,7 @@ public abstract class AbstractQueryDatabaseTable extends AbstractDatabaseFetchPr
         } catch (final IOException ioe) {
             getLogger().error("Failed to retrieve observed maximum values from the State Manager. Will not perform "
                     + "query until this is accomplished.", ioe);
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -305,7 +305,7 @@ public abstract class AbstractQueryDatabaseTable extends AbstractDatabaseFetchPr
                 }
             } catch (final Exception e) {
                 logger.error("Unable to execute SQL select query {} due to {}", new Object[]{selectMaxQuery, e});
-                context.yield();
+                context.yieldForAWhile();
             }
         }
 
@@ -397,7 +397,7 @@ public abstract class AbstractQueryDatabaseTable extends AbstractDatabaseFetchPr
                         session.remove(fileToProcess);
                         // If no rows and this was first FlowFile, yield
                         if(fragmentIndex == 0){
-                            context.yield();
+                            context.yieldForAWhile();
                         }
                         break;
                     }
@@ -450,7 +450,7 @@ public abstract class AbstractQueryDatabaseTable extends AbstractDatabaseFetchPr
             if (!resultSetFlowFiles.isEmpty()) {
                 session.remove(resultSetFlowFiles);
             }
-            context.yield();
+            context.yieldForAWhile();
         } finally {
             try {
                 // Update the state

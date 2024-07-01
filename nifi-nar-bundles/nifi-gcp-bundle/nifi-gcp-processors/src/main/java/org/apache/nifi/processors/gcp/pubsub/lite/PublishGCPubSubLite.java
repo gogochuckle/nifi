@@ -187,13 +187,13 @@ public class PublishGCPubSubLite extends AbstractGCPubSubProcessor implements Ve
         final List<FlowFile> flowFiles = session.get(flowFileCount);
 
         if (flowFiles.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
         if (publisher == null) {
             getLogger().error("Google Cloud PubSub Lite Publisher was not properly created. Yielding the processor...");
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -235,7 +235,7 @@ public class PublishGCPubSubLite extends AbstractGCPubSubProcessor implements Ve
                 getLogger().error("Failed to publish the messages to Google Cloud PubSub Lite topic '{}' due to {}, "
                         + "routing all messages from the batch to failure", topicName, e.getLocalizedMessage(), e);
                 session.transfer(flowFiles, REL_FAILURE);
-                context.yield();
+                context.yieldForAWhile();
             }
         } finally {
             if (!successfulFlowFiles.isEmpty()) {

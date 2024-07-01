@@ -424,7 +424,7 @@ public class PublishKafka_2_0 extends AbstractProcessor implements KafkaPublishC
 
         final PublisherPool pool = getPublisherPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -497,7 +497,7 @@ public class PublishKafka_2_0 extends AbstractProcessor implements KafkaPublishC
                 lease.poison();
                 getLogger().error("Failed to send messages to Kafka; will yield Processor and transfer FlowFiles to specified failure strategy");
                 failureStrategy.routeFlowFiles(session, flowFiles);
-                context.yield();
+                context.yieldForAWhile();
             }
         }
     }

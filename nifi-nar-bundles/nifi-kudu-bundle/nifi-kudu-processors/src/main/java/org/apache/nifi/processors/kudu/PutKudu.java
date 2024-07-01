@@ -389,7 +389,7 @@ public class PutKudu extends AbstractKuduProcessor {
         if (isRollbackOnFailure() && (!pendingRowErrors.isEmpty() || !flowFileFailures.isEmpty())) {
             logFailures(pendingRowErrors, operationFlowFileMap);
             session.rollback();
-            context.yield();
+            context.yieldForAWhile();
         } else {
             transferFlowFiles(flowFiles, processedRecords, flowFileFailures, operationFlowFileMap, pendingRowErrors, session);
         }

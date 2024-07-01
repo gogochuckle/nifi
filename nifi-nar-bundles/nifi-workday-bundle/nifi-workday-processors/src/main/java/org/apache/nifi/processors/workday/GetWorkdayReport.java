@@ -240,7 +240,7 @@ public class GetWorkdayReport extends AbstractProcessor {
         } catch (Exception e) {
             if (flowFile == null) {
                 getLogger().error("Request Processing failed", e);
-                context.yield();
+                context.yieldForAWhile();
             } else {
                 getLogger().error("Request Processing failed: {}", flowFile, e);
                 session.penalize(flowFile);
@@ -322,7 +322,7 @@ public class GetWorkdayReport extends AbstractProcessor {
 
     private void route(FlowFile request, FlowFile response, ProcessSession session, ProcessContext context, int statusCode) {
         if (!isSuccess(statusCode) && request == null) {
-            context.yield();
+            context.yieldForAWhile();
         }
 
         if (isSuccess(statusCode)) {

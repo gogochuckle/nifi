@@ -500,7 +500,7 @@ public class PutEmail extends AbstractProcessor {
             session.transfer(flowFile, REL_SUCCESS);
             getLogger().debug("Sent email as a result of receiving {}", flowFile);
         } catch (final ProcessException | MessagingException | IOException e) {
-            context.yield();
+            context.yieldForAWhile();
             getLogger().error("Failed to send email for {}: {}; routing to failure", flowFile, e.getMessage(), e);
             session.transfer(flowFile, REL_FAILURE);
         }

@@ -232,7 +232,7 @@ public class PutBigQuery extends AbstractBigQueryProcessor {
             streamWriter = createStreamWriter(writeStream.getName(), protoDescriptor, getGoogleCredentials(context));
         } catch (Descriptors.DescriptorValidationException | IOException e) {
             getLogger().error("Failed to create Big Query Stream Writer for writing", e);
-            context.yield();
+            context.yieldForAWhile();
             session.rollback();
             return;
         }

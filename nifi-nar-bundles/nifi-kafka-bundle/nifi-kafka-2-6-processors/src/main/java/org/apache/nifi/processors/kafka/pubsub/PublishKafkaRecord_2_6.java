@@ -492,7 +492,7 @@ public class PublishKafkaRecord_2_6 extends AbstractProcessor implements KafkaPu
 
         final PublisherPool pool = getPublisherPool(context);
         if (pool == null) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -590,7 +590,7 @@ public class PublishKafkaRecord_2_6 extends AbstractProcessor implements KafkaPu
                 lease.poison();
                 getLogger().error("Failed to send messages to Kafka; will yield Processor and transfer FlowFiles to specified failure strategy");
                 failureStrategy.routeFlowFiles(session, flowFiles);
-                context.yield();
+                context.yieldForAWhile();
             }
         }
     }
@@ -600,7 +600,7 @@ public class PublishKafkaRecord_2_6 extends AbstractProcessor implements KafkaPu
             return pool.obtainPublisher();
         } catch (final KafkaException e) {
             getLogger().error("Failed to obtain Kafka Producer", e);
-            context.yield();
+            context.yieldForAWhile();
             throw e;
         }
     }

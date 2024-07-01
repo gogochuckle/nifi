@@ -311,9 +311,9 @@ public class ConsumerPool implements Closeable {
         }
 
         @Override
-        public void yield() {
+        public void yieldForAWhile() {
             if (processContext != null) {
-                processContext.yield();
+                processContext.yieldForAWhile();
             }
         }
 

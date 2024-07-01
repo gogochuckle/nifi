@@ -66,7 +66,7 @@ public class GetJMSQueue extends JmsConsumer {
                 wrappedConsumer = JmsFactory.createQueueMessageConsumer(context);
             } catch (JMSException e) {
                 logger.error("Failed to connect to JMS Server due to {}", e);
-                context.yield();
+                context.yieldForAWhile();
                 return;
             }
         }

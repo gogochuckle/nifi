@@ -291,7 +291,7 @@ public class PutHDFS extends AbstractHadoopProcessor {
         if (configuration == null || hdfs == null || ugi == null) {
             getLogger().error("HDFS not configured properly");
             session.transfer(flowFile, getFailureRelationship());
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 
@@ -483,7 +483,7 @@ public class PutHDFS extends AbstractHadoopProcessor {
                     }
                     getLogger().error("Failed to write to HDFS due to {}", new Object[]{t});
                     session.transfer(session.penalize(putFlowFile), getFailureRelationship());
-                    context.yield();
+                    context.yieldForAWhile();
                 }
 
                 return null;

@@ -200,7 +200,7 @@ public abstract class AbstractJMSProcessor<T extends JMSWorker> extends Abstract
                 worker = buildTargetResource(context);
             } catch (Exception e) {
                 getLogger().error("Failed to initialize JMS Connection Factory", e);
-                context.yield();
+                context.yieldForAWhile();
                 throw e;
             }
         }

@@ -244,7 +244,7 @@ public class PutSyslog extends AbstractSyslogProcessor {
         final int batchSize = context.getProperty(BATCH_SIZE).evaluateAttributeExpressions().asInteger();
         final List<FlowFile> flowFiles = session.get(batchSize);
         if (flowFiles.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
         } else {
             for (final FlowFile flowFile : flowFiles) {
                 final StopWatch timer = new StopWatch(true);

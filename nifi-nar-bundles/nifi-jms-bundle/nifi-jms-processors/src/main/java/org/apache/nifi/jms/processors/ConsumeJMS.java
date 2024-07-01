@@ -331,7 +331,7 @@ public class ConsumeJMS extends AbstractJMSProcessor<JMSConsumer> {
         } catch(Exception e) {
             getLogger().error("Error while trying to process JMS message", e);
             consumer.setValid(false);
-            context.yield();
+            context.yieldForAWhile();
             throw e;
         }
     }

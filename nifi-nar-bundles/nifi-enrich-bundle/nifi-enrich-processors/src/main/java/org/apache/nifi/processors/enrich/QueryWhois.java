@@ -212,7 +212,7 @@ public class QueryWhois extends AbstractEnrichProcessor {
         List<FlowFile> flowFiles = session.get(batchSize);
 
         if (flowFiles == null || flowFiles.isEmpty()) {
-            context.yield();
+            context.yieldForAWhile();
             return;
         }
 

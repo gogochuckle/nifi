@@ -198,8 +198,8 @@ public class ConnectableProcessContext implements ProcessContext {
     }
 
     @Override
-    public void yield() {
-        connectable.yield();
+    public void yieldForAWhile() {
+        connectable.yieldForAWhile();
     }
 
     @Override
